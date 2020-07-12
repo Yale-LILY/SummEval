@@ -1,5 +1,5 @@
 # summ_eval
-Toolkit for summarization evaluation to unify metrics and promote robust comparison of summarization systems. Includes the most popular and most recent metrics for summarization as well as several machine translation metrics. 
+Toolkit for summarization evaluation to unify metrics and promote robust comparison of summarization systems. Includes popular and recent metrics for summarization as well as several machine translation metrics. If you have a metric you want to add, pull requests are welcomed!
 
 # Metrics #
 Below are the metrics included in the tookit, followed by the associated paper and code used within the toolkit: 
