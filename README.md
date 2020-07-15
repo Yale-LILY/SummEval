@@ -58,7 +58,7 @@ To recreate the full dataset please follow the instructions listed [here](#data-
 **IMPORTANT:** 
 
 All model outputs were obtained from the original authors of the models and shared with their consent.<br/>
-When using any of the model outputs, please _cite the original paper_.
+When using any of the model outputs, please also _cite the original paper_.
 
 
 ### Human annotations
