@@ -14,7 +14,8 @@ This project is a collaboration work between [Yale LILY Lab](https://yale-lily.g
 1. [Updates](#updates)
 2. [Data](#data)
 3. [Evaluation Toolkit](#evaluation-toolkit)
-4. [Get Involved](#get-involved)
+4. [Citation](#citation)
+5. [Get Involved](#get-involved)
 
 ## Updates
 _7/16/2020_ - Initial commit! :) 
