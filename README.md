@@ -1,5 +1,5 @@
 # Summarization Repository 
-Authors: [Alex Fabbri](link), [Wojciech Kryściński](https://twitter.com/iam_wkr), [Dragomir Radev](), and [Richard Socher](https://www.socher.org/)
+Authors: [Alex Fabbri](http://alex-fabbri.github.io/), [Wojciech Kryściński](https://twitter.com/iam_wkr), [Dragomir Radev](http://www.cs.yale.edu/homes/radev/), and [Richard Socher](https://www.socher.org/)
 
 This project is a collaboration work between [Yale LILY Lab](https://yale-lily.github.io/) and [Salesforce Research](https://einstein.ai/). <br/><br/>
 
