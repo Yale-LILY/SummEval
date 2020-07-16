@@ -85,11 +85,11 @@ To recreate the datasets follow the instructions:
 
 Example call for _model outputs_:
 
-`python3 data_pairing/pair_data.py <dir-with-factcc-data> <dir-with-stories>`
+`python3 data_processing/pair_data.py --model_outputs <file-with-data-annotations> --story_files <dir-with-stories>`
 
 Example call for _human annotations_:
 
-`python3 data_pairing/pair_data.py <dir-with-factcc-data> <dir-with-stories>`
+`python3 data_processing/pair_data.py --data_annotations <file-with-data-annotations> --story_files <dir-with-stories>`
 
 
 ## Evaluation Toolkit
