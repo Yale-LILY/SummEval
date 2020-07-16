@@ -97,20 +97,22 @@ Example call for _human annotations_:
 We provide a toolkit for summarization evaluation to unify metrics and promote robust comparison of summarization systems. The toolkit contains popular and recent metrics for summarization as well as several machine translation metrics.
 
 ### Metrics ###
-Below are the metrics included in the tookit, followed by the associated paper and code used within the toolkit: 
-- ROUGE: [PAPER](https://www.aclweb.org/anthology/W04-1013.pdf) [CODE](https://github.com/bheinzerling/pyrouge/tree/master/pyrouge)
-- ROUGE-we: [PAPER](https://www.aclweb.org/anthology/D15-1222.pdf) [CODE](https://github.com/UKPLab/emnlp-ws-2017-s3/tree/master/S3)
-- MoverScore: [PAPER](https://www.aclweb.org/anthology/D19-1053.pdf) [CODE](https://github.com/AIPHES/emnlp19-moverscore/)
-- BertScore: [PAPER](https://arxiv.org/pdf/1904.09675.pdf) [CODE](https://github.com/Tiiiger/bert_score)
-- Sentence Mover's Similarity: [PAPER](https://www.aclweb.org/anthology/P19-1264.pdf) [CODE](https://github.com/eaclark07/sms)
-- SummaQA: [PAPER](https://www.aclweb.org/anthology/D19-1320.pdf) [CODE](https://github.com/recitalAI/summa-qa)
-- METEOR: [PAPER](https://www.aclweb.org/anthology/W05-0909.pdf) [CODE](https://github.com/Maluuba/nlg-eval/tree/master/nlgeval/pycocoevalcap/meteor)
-- Learning to Score System Summaries for Better Content Selection Evaluation: [PAPER](https://www.aclweb.org/anthology/W17-4510/) [CODE](https://github.com/UKPLab/emnlp-ws-2017-s3)
-- Measures of extractiveness, misc statistics: (Novel n-grams, Repetition, Length) [PAPER](https://www.aclweb.org/anthology/N18-1065/) [CODE](https://github.com/lil-lab/newsroom)
-- Syntactic evaluation: [PAPER](https://www.benjamins.com/catalog/ijcl.15.4.02lu) [CODE](http://www.personal.psu.edu/xxl13/downloads/L2SCA-2016-06-30.tgz)
-- Cider: [PAPER](https://www.cv-foundation.org/openaccess/content_cvpr_2015/papers/Vedantam_CIDEr_Consensus-Based_Image_2015_CVPR_paper.pdf) [CODE](https://github.com/Maluuba/nlg-eval/tree/master/nlgeval/pycocoevalcap/cider)
-- CHRF: [PAPER](https://www.statmt.org/wmt17/pdf/WMT70.pdf) [CODE](https://github.com/m-popovic/chrF)
-- BLEU: [PAPER](https://www.aclweb.org/anthology/P02-1040.pdf) [CODE](https://github.com/mjpost/sacreBLEU)
+Below are the metrics included in the tookit, followed by the associated paper and code used within the toolkit:
+|Metric|Paper|Code|
+|-|-|-|
+|ROUGE|[ROUGE: A Package for Automatic Evaluation of Summaries](https://www.aclweb.org/anthology/W04-1013.pdf)|[Link](https://github.com/bheinzerling/pyrouge/tree/master/pyrouge)|
+|ROUGE-we|[Better Summarization Evaluation with Word Embeddings for ROUGE](https://www.aclweb.org/anthology/D15-1222.pdf)|[Link](https://github.com/UKPLab/emnlp-ws-2017-s3/tree/master/S3)|
+|MoverScore|[MoverScore: Text Generation Evaluating with Contextualized Embeddings and Earth Mover Distance](https://www.aclweb.org/anthology/D19-1053.pdf)|[Link](https://github.com/AIPHES/emnlp19-moverscore/)|
+|BertScore|[BertScore: Evaluating Text Generation with BERT](https://arxiv.org/pdf/1904.09675.pdf)|[Link](https://github.com/Tiiiger/bert_score)|
+|Sentence Mover's Similarity|[Sentence Mover’s Similarity: Automatic Evaluation for Multi-Sentence Texts](https://www.aclweb.org/anthology/P19-1264.pdf)|[Link](https://github.com/eaclark07/sms)|
+|SummaQA|[Answers Unite! Unsupervised Metrics for Reinforced Summarization Models](https://www.aclweb.org/anthology/D19-1320.pdf)|[Link](https://github.com/recitalAI/summa-qa)|
+|METEOR|[METEOR: An Automatic Metric for MT Evaluation with Improved Correlation with Human Judgments ](https://www.aclweb.org/anthology/W05-0909.pdf)|[Link](https://github.com/Maluuba/nlg-eval/tree/master/nlgeval/pycocoevalcap/meteor)|
+|S3|[Learning to Score System Summaries for Better Content Selection Evaluation](https://www.aclweb.org/anthology/W17-4510/)|[Link](https://github.com/UKPLab/emnlp-ws-2017-s3)|
+|Misc stats (novel n-grams, repetition, length)|[Newsroom: A Dataset of 1.3 Million Summaries with Diverse Extractive Strategies](https://www.aclweb.org/anthology/N18-1065/)| [Link](https://github.com/lil-lab/newsroom)|
+|Syntactic Evaluation|[Automatic Analysis of Syntactic Complexity in Second Language writing](https://www.benjamins.com/catalog/ijcl.15.4.02lu)|[Link](http://www.personal.psu.edu/xxl13/downloads/L2SCA-2016-06-30.tgz)|
+|CIDer|[CIDEr: Consensus-based Image Description Evaluation](https://www.cv-foundation.org/openaccess/content_cvpr_2015/papers/Vedantam_CIDEr_Consensus-Based_Image_2015_CVPR_paper.pdf)|[Link](https://github.com/Maluuba/nlg-eval/tree/master/nlgeval/pycocoevalcap/cider)|
+|CHRF|[CHRF++: words helping character n-grams](https://www.statmt.org/wmt17/pdf/WMT70.pdf)|[Link](https://github.com/m-popovic/chrF)|
+|BLEU|[BLEU: a Method for Automatic Evaluation of Machine Translation](https://www.aclweb.org/anthology/P02-1040.pdf)|[Link](https://github.com/mjpost/sacreBLEU)|
 
 
 #### SETUP ####
