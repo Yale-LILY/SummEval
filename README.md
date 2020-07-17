@@ -200,7 +200,7 @@ rouge_dict = rouge.evaluate_batch(summaries, multi_references)
 ```
 @article{fabbriSummEval2020,
   author    = {Alexander R. Fabbri and Wojciech Kry{\'s}ci{\'n}ski and Bryan McCann and Richard Socher and Dragomir Radev},
-  title     = {XXXXXXXXXXXXXXX},
+  title     = {SummEval: Re-evaluating Summarization Evaluation},
   journal   = {XXXX},
   year      = {2020},
 }
