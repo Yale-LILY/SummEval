@@ -27,7 +27,9 @@ setup(name='summ_eval',
           'spacy==2.2.0',
           'sacrebleu',
           'pyemd==0.5.1',
-          'click'
+          'click', 
+          'nltk', 
+          'scipy'
       ],
       entry_points={
           'console_scripts': [
