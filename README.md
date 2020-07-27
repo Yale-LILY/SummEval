@@ -1,6 +1,5 @@
 # Summarization Repository 
 Authors: [Alex Fabbri*](http://alex-fabbri.github.io/), [Wojciech Kryściński*](https://twitter.com/iam_wkr), [Bryan McCann](https://bmccann.github.io/), [Caiming Xiong](http://cmxiong.com/), [Richard Socher](https://www.socher.org/), and [Dragomir Radev](http://www.cs.yale.edu/homes/radev/)<br/>
-<sub><sup>\* - Equal contributions from authors</sup></sub>
 
 This project is a collaboration work between [Yale LILY Lab](https://yale-lily.github.io/) and [Salesforce Research](https://einstein.ai/). <br/><br/>
 
@@ -10,7 +9,7 @@ This project is a collaboration work between [Yale LILY Lab](https://yale-lily.g
 <img src="assets/logo-salesforce.svg" height="100" alt="Salesforce Logo"> 
 </p>
 
-
+<sub><sup>\* - Equal contributions from authors</sup></sub>
 
 ## Table of Contents
 
