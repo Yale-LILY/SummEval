@@ -1,15 +1,16 @@
 # Summarization Repository 
-Authors: [Alex Fabbri](http://alex-fabbri.github.io/), [Wojciech Kryściński](https://twitter.com/iam_wkr), [Bryan McCann](https://bmccann.github.io/), [Richard Socher](https://www.socher.org/), and [Dragomir Radev](http://www.cs.yale.edu/homes/radev/)
+Authors: [Alex Fabbri*](http://alex-fabbri.github.io/), [Wojciech Kryściński*](https://twitter.com/iam_wkr), [Bryan McCann](https://bmccann.github.io/), [Caiming Xiong](http://cmxiong.com/), [Richard Socher](https://www.socher.org/), and [Dragomir Radev](http://www.cs.yale.edu/homes/radev/)<br/>
+<sub><sup>\* - Equal contributions from authors</sup></sub>
 
 This project is a collaboration work between [Yale LILY Lab](https://yale-lily.github.io/) and [Salesforce Research](https://einstein.ai/). <br/><br/>
 
-<!---
 <p align="center">
-<img src="./lily-logo.png" height="100" alt="LILY Logo" style="padding-right:160">
+<img src="assets/logo-lily.png" height="100" alt="LILY Logo" style="padding-right:160">
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<img src="./logo-salesforce.svg" height="100" alt="Salesforce Logo"> 
+<img src="assets/logo-salesforce.svg" height="100" alt="Salesforce Logo"> 
 </p>
---->
+
+
 
 ## Table of Contents
 
