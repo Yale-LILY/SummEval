@@ -119,7 +119,7 @@ Below are the metrics included in the tookit, followed by the associated paper a
 
 First install the summ_eval toolkit:
 ```bash
-git clone https://github.com/Yale-LILY/summarization-repository.git
+git clone https://github.com/Yale-LILY/SummEval.git
 cd evaluation
 pip install -e .
 ```
