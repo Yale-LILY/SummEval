@@ -34,6 +34,8 @@ class BleuMetric(Metric):
 
     def evaluate_example(self, summary, reference):
         #print("BLEU is intended as a corpus-level metric. Be careful!")
+        if isinstance(reference, str):
+            reference = [reference]
         score = sacrebleu.sentence_bleu(summary, reference, smooth_method=self.sent_smooth_method, \
              smooth_value=self.sent_smooth_value, use_effective_order=self.sent_use_effective_order)
         score_dict = {"bleu" : score.score}
