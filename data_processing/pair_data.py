@@ -5,6 +5,7 @@ CNN/DM Story files can be downloaded from https://cs.nyu.edu/~kcho/DMQA/
 import argparse
 import json
 import os
+from tqdm import tqdm
 
 
 def parse_story_file(content):
