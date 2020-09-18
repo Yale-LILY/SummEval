@@ -27,7 +27,7 @@ def cli_main():
     # INITIALIZE METRICS
     gin.parse_config_file(args.config_file)
     toks_needed = set()
-    metrics = args.metrics.split(",")
+    metrics = [x.strip() for x in args.metrics.split(",")]
     metrics_dict = {}
     if "rouge" in metrics:
         from summ_eval.rouge_metric import RougeMetric
@@ -183,7 +183,7 @@ def cli_main():
             summaries_delimited = [f"{args.eos}\n".join(ref.split(args.eos)) for ref in summaries]
     elif "line_delimited" in toks_needed:
         summaries_delimited = summaries
-    elif "space" in toks_needed:
+    if "space" in toks_needed:
         summaries_space = summaries
 
     if "stem" in toks_needed:
