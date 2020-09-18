@@ -166,7 +166,7 @@ def cli_main():
             references_delimited = [f"{args.eos}\n".join(ref.split(args.eos)) for ref in references]
     elif "line_delimited" in toks_needed:
         references_delimited = references
-    elif "space" in toks_needed:
+    if "space" in toks_needed:
         references_space = references
 
     if isinstance(summaries[0], list):
