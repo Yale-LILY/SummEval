@@ -10,6 +10,9 @@ dirname, _ = os.path.split(os.path.abspath(__file__))
 if click.confirm("Setup ROUGE?", default=True):
     print(f'Please run the following command and add it to your startup script: \n export ROUGE_HOME={os.path.join(dirname, "summ_eval/ROUGE-1.5.5/")}')
 
+if click.confirm("Setup SuPERT?", default=True):
+    print(f'Please run the following command and add it to your startup script: \n export PYTHONPATH=$PYTHONPATH:{os.path.join(dirname, "summ_eval/")}')
+
 if click.confirm("Download METEOR jar?", default=True):
     if not os.path.exists(os.path.join(dirname, "summ_eval/meteor-1.5.jar")):
         url = 'https://github.com/Maluuba/nlg-eval/blob/master/nlgeval/pycocoevalcap/meteor/meteor-1.5.jar?raw=true'

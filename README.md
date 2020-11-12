@@ -20,6 +20,7 @@ This project is a collaboration work between [Yale LILY Lab](https://yale-lily.g
 5. [Get Involved](#get-involved)
 
 ## Updates
+_11/12/2020_ - Added the reference-less BLANC and SUPERT metrics!
 _7/16/2020_ - Initial commit! :) 
 
 ## Data
@@ -106,6 +107,8 @@ Below are the metrics included in the tookit, followed by the associated paper a
 |BertScore|[BertScore: Evaluating Text Generation with BERT](https://arxiv.org/pdf/1904.09675.pdf)|[Link](https://github.com/Tiiiger/bert_score)|
 |Sentence Mover's Similarity|[Sentence Mover’s Similarity: Automatic Evaluation for Multi-Sentence Texts](https://www.aclweb.org/anthology/P19-1264.pdf)|[Link](https://github.com/eaclark07/sms)|
 |SummaQA|[Answers Unite! Unsupervised Metrics for Reinforced Summarization Models](https://www.aclweb.org/anthology/D19-1320.pdf)|[Link](https://github.com/recitalAI/summa-qa)|
+|BLANC|[Fill in the BLANC: Human-free quality estimation of document summaries](https://arxiv.org/pdf/2002.09836.pdf)|[Link](https://github.com/PrimerAI/blanc)|
+|SUPERT|[SUPERT: Towards New Frontiers in Unsupervised Evaluation Metrics for Multi-Document Summarization](https://www.aclweb.org/anthology/2020.acl-main.124.pdf)|[Link](https://github.com/yg211/acl20-ref-free-eval)|
 |METEOR|[METEOR: An Automatic Metric for MT Evaluation with Improved Correlation with Human Judgments ](https://www.aclweb.org/anthology/W05-0909.pdf)|[Link](https://github.com/Maluuba/nlg-eval/tree/master/nlgeval/pycocoevalcap/meteor)|
 |S<sup>3</sup>|[Learning to Score System Summaries for Better Content Selection Evaluation](https://www.aclweb.org/anthology/W17-4510/)|[Link](https://github.com/UKPLab/emnlp-ws-2017-s3)|
 |Misc. statistics<br/>(extractiveness, novel n-grams, repetition, length)|[Newsroom: A Dataset of 1.3 Million Summaries with Diverse Extractive Strategies](https://www.aclweb.org/anthology/N18-1065/)| [Link](https://github.com/lil-lab/newsroom)|

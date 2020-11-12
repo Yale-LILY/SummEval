@@ -87,6 +87,14 @@ def cli_main():
         from summ_eval.syntactic_metric import SyntacticMetric
         metrics_dict["syntactic"] = SyntacticMetric()
         toks_needed.add("space")
+    if "supert" in metrics:
+        from summ_eval.supert_metric import SupertMetric
+        metrics_dict['supert'] = SupertMetric()
+        toks_needed.add("space")
+    if "blanc" in metrics:
+        from summ_eval.blanc_metric import BlancMetric
+        metrics_dict['blanc'] = BlancMetric()
+        toks_needed.add("space")
     # =====================================
 
 
@@ -116,7 +124,7 @@ def cli_main():
                             continue
                         summaries.append(data['decoded'])
                         references.append(data['reference'])
-                        if "summaqa" in metrics or "stats" in metrics:
+                        if "summaqa" in metrics or "stats" in metrics or "supert" in metrics or "blanc" in metrics:
                             try:
                                 articles.append(data['text'])
                             except:
@@ -129,15 +137,20 @@ def cli_main():
             print(e)
             sys.exit()
         print(f"This many bad lines encountered during loading: {bad_lines}")
-    elif args.summ_file is not None and args.ref_file is not None:
+
+    if args.summ_file is not None:
         with open(args.summ_file) as inputf:
             summaries = inputf.read().splitlines()
+    if args.ref_file is not None:
         with open(args.ref_file) as inputf:
             references = inputf.read().splitlines()
-        if "summaqa" in metrics or "stats" in metrics:
-            if args.article_file is None:
-                raise ValueError("You specified summaqa and stats, which" \
-                     "require input articles, but we could not parse the file!")
+    if "summaqa" in metrics or "stats" in metrics or "supert" in metrics or "blanc" in metrics:
+        if args.article_file is None and len(articles) == 0:
+            raise ValueError("You specified summaqa and stats, which" \
+                 "require input articles, but we could not parse the file!")
+        if len(articles) > 0:
+            pass
+        else:
             with open(args.article_file) as inputf:
                 articles = inputf.read().splitlines()
     if len(ids) == 0:
@@ -152,22 +165,23 @@ def cli_main():
     print("Preparing the input")
     references_delimited = None
     summaries_delimited = None
-    if isinstance(references[0], list):
-        if "line_delimited" in toks_needed:
-            references_delimited = ["\n".join(ref) for ref in references]
+    if len(references) > 0:
+        if isinstance(references[0], list):
+            if "line_delimited" in toks_needed:
+                references_delimited = ["\n".join(ref) for ref in references]
+            if "space" in toks_needed:
+                references_space = [" ".join(ref) for ref in references]
+        elif args.eos is not None:
+            if "line_delimited" not in toks_needed:
+                raise ValueError('You provided a delimiter but are not using a metric which requires one.')
+            if args.eos == "\n":
+                references_delimited = [ref.split(args.eos) for ref in references]
+            else:
+                references_delimited = [f"{args.eos}\n".join(ref.split(args.eos)) for ref in references]
+        elif "line_delimited" in toks_needed:
+            references_delimited = references
         if "space" in toks_needed:
-            references_space = [" ".join(ref) for ref in references]
-    elif args.eos is not None:
-        if "line_delimited" not in toks_needed:
-            raise ValueError('You provided a delimiter but are not using a metric which requires one.')
-        if args.eos == "\n":
-            references_delimited = [ref.split(args.eos) for ref in references]
-        else:
-            references_delimited = [f"{args.eos}\n".join(ref.split(args.eos)) for ref in references]
-    elif "line_delimited" in toks_needed:
-        references_delimited = references
-    if "space" in toks_needed:
-        references_space = references
+            references_space = references
 
     if isinstance(summaries[0], list):
         if "line_delimited" in toks_needed:
@@ -221,6 +235,8 @@ def cli_main():
                 input_spacy = [nlp(text, disable=disable) for text in articles]
             if "stats" in metrics:
                 input_spacy_stats = [[tok.text for tok in article] for article in input_spacy]
+    if "supert" in metrics or "blanc" in metrics:
+        inputs_space = articles
     # =====================================
 
 
@@ -246,14 +262,17 @@ def cli_main():
                 output = metric_cls.evaluate_batch(summaries_stemmed, references_stemmed, aggregate=args.aggregate)
             elif metric == "sms":
                 output = metric_cls.evaluate_batch(summaries_spacy, references_spacy, aggregate=args.aggregate)
-            elif metric in ('summaqa', 'stats'):
+            elif metric in ('summaqa', 'stats', 'supert', 'blanc'):
                 if metric == "summaqa":
                     output = metric_cls.evaluate_batch(summaries_space, input_spacy, aggregate=args.aggregate)
-                else:
+                elif metric == "stats":
                     output = metric_cls.evaluate_batch(summaries_spacy_stats, input_spacy_stats, aggregate=args.aggregate)
+                elif metric in ('supert', 'blanc'):
+                    output = metric_cls.evaluate_batch(summaries_space, inputs_space, aggregate=args.aggregate)
             if args.aggregate:
                 final_output.update(output)
             else:
+                ids = list(range(0, len(ids)))
                 for cur_id, cur_output in zip(ids, output):
                     final_output[cur_id].update(cur_output)
         except Exception as e:
