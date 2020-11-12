@@ -20,7 +20,7 @@ This project is a collaboration work between [Yale LILY Lab](https://yale-lily.g
 5. [Get Involved](#get-involved)
 
 ## Updates
-_11/12/2020_ - Added the reference-less BLANC and SUPERT metrics!
+_11/12/2020_ - Added the reference-less BLANC and SUPERT metrics! <br/>
 _7/16/2020_ - Initial commit! :) 
 
 ## Data
