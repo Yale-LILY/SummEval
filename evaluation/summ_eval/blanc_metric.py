@@ -26,9 +26,10 @@ class BlancMetric(Metric):
     def evaluate_batch(self, summaries, input_texts, aggregate=True):
         corpus_score_dict = Counter()
         if self.use_tune:
-            blanc_mod = BlancTune(device=self.device, inference_batch_size=self.inference_batch_size)
-        else:
             blanc_mod = BlancTune(device='cuda', inference_batch_size=self.inference_batch_size, finetune_batch_size=self.finetune_batch_size)
+        else:
+            blanc_mod = BlancTune(device=self.device, inference_batch_size=self.inference_batch_size)
+            
         results = blanc_mod.eval_pairs(input_texts, summaries)
         results = [{"blanc": score} for score in results]
         if aggregate:
