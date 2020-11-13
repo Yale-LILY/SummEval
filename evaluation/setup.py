@@ -29,7 +29,8 @@ setup(name='summ_eval',
           'pyemd==0.5.1',
           'click', 
           'nltk', 
-          'scipy'
+          'scipy',
+          'blanc',
       ],
       entry_points={
           'console_scripts': [
