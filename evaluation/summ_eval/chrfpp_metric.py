@@ -22,6 +22,8 @@ class ChrfppMetric(Metric):
         self.n_workers = n_workers
 
     def evaluate_example(self, summary, reference):
+        if not isinstance(reference, list):
+            reference = [reference]
         score = sacrebleu.sentence_chrf(summary, reference, order=self.ncorder, beta=self.beta)
         score_dict = {"chrf": score.score}
         return score_dict
