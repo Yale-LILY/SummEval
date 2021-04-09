@@ -20,6 +20,7 @@ This project is a collaboration work between [Yale LILY Lab](https://yale-lily.g
 5. [Get Involved](#get-involved)
 
 ## Updates
+_04/09/2020_ - Please see [this comment](https://github.com/Yale-LILY/SummEval/issues/13#issuecomment-812918298) with code for computing system-level metric correlations!  <br/>
 _11/12/2020_ - Added the reference-less BLANC and SUPERT metrics! <br/>
 _7/16/2020_ - Initial commit! :) 
 
