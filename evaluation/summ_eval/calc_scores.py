@@ -213,7 +213,14 @@ def cli_main():
         references_stemmed = [" ".join(ref) for ref in references_stemmed]
 
     if "spacy" in toks_needed:
-        nlp = spacy.load('en_core_web_md')
+        try:
+            nlp = spacy.load('en_core_web_md')
+        except OSError:
+            print('Downloading the spacy en_core_web_md model\n'
+                "(don't worry, this will only happen once)", file=stderr)
+            from spacy.cli import download
+            download('en_core_web_md')
+            nlp = spacy.load('en_core_web_md')
         disable = ["tagger", "textcat"]
         if "summaqa" not in metrics:
             disable.append("ner")

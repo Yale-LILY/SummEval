@@ -4,7 +4,14 @@ import gin
 from summ_eval.summa_qa_utils import QA_Metric, QG_masked, evaluate_corpus
 from summ_eval.metric import Metric
 
-nlp = spacy.load("en_core_web_sm")
+try:
+    nlp = spacy.load('en_core_web_sm')
+except OSError:
+    print('Downloading the spacy en_core_web_sm model\n'
+        "(don't worry, this will only happen once)", file=stderr)
+    from spacy.cli import download
+    download('en_core_web_sm')
+    nlp = spacy.load('en_core_web_sm')
 
 @gin.configurable
 class SummaQAMetric(Metric):

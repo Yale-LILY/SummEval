@@ -14,7 +14,15 @@ from nltk.corpus import stopwords
 stop_words = set(stopwords.words('english'))
 
 print("loading spacy")
-nlp = spacy.load('en_core_web_md')
+
+try:
+    nlp = spacy.load('en_core_web_sm')
+except OSError:
+    print('Downloading the spacy en_core_web_sm model\n'
+        "(don't worry, this will only happen once)", file=stderr)
+    from spacy.cli import download
+    download('en_core_web_sm')
+    nlp = spacy.load('en_core_web_sm')
 
 def get_sim(doc, text, wordrep, model, metric):
     [ref_ids, hyp_ids], rep_map = get_embeddings(doc, text, wordrep, model, metric)

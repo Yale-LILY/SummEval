@@ -6,7 +6,15 @@ import spacy
 from summ_eval.data_stats_utils import Fragments
 from summ_eval.metric import Metric
 
-_en = spacy.load("en_core_web_sm")
+try:
+    _en = spacy.load('en_core_web_sm')
+except OSError:
+    print('Downloading the spacy en_core_web_sm model\n'
+        "(don't worry, this will only happen once)", file=stderr)
+    from spacy.cli import download
+    download('en_core_web_sm')
+    _en = spacy.load('en_core_web_sm')
+
 
 def find_ngrams(input_list, n):
     return zip(*[input_list[i:] for i in range(n)])
