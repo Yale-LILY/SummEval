@@ -20,6 +20,8 @@ This project is a collaboration work between [Yale LILY Lab](https://yale-lily.g
 5. [Get Involved](#get-involved)
 
 ## Updates
+_04/19/2020_ - Updated the [human annotation file](https://drive.google.com/file/d/1d2Iaz3jNraURP1i7CfTqPIj8REZMJ3tS/view?usp=sharing) to include all models from paper and metric scores.<br/>
+_04/19/2020_ - SummEval is now pip-installable! Check out the [pypi page](https://pypi.org/project/summ-eval/).<br/>
 _04/09/2020_ - Please see [this comment](https://github.com/Yale-LILY/SummEval/issues/13#issuecomment-812918298) with code for computing system-level metric correlations!  <br/>
 _11/12/2020_ - Added the reference-less BLANC and SUPERT metrics! <br/>
 _7/16/2020_ - Initial commit! :) 
@@ -121,20 +123,20 @@ Below are the metrics included in the tookit, followed by the associated paper a
 
 #### SETUP ####
 
-First install the summ_eval toolkit:
+You can install summ_eval via pip:
 ```bash
+pip install summ-eval
+```
+
+You can also install summ_eval from source:
+
+```
 git clone https://github.com/Yale-LILY/SummEval.git
 cd evaluation
 pip install -e .
 ```
 
-To finish the setup, please run and follow the prompts in this script:
-
-```
-python setup_finalize.py
-```
-
-You can test your installation and get familiar with the library through `tests/`
+You can test your installation (assuming you're in the `./summ_eval` folder) and get familiar with the library through `tests/`
 
 ```
 python -m unittest discover

@@ -1,6 +1,7 @@
 # pylint: disable=W0102,C0301,W1401,C0303,C0103,W0221,C0200,W0106
 # Uses code from https://raw.githubusercontent.com/yg211/acl20-ref-free-eval/master/ref_free_metrics/supert.py
 
+import os
 from collections import Counter
 from nltk.tokenize import sent_tokenize
 import gin
@@ -8,6 +9,17 @@ import gin
 from summ_eval.sentence_transformers import SentenceTransformer
 from summ_eval.metric import Metric
 from summ_eval.supert_utils import parse_documents, get_all_token_vecs, build_pseudo_ref, get_sbert_score, get_token_vecs
+
+try:
+    PYTHONPATH = os.environ['PYTHONPATH']
+except:
+    PYTHONPATH = ""
+
+dirname = os.path.dirname(__file__)
+
+if dirname not in PYTHONPATH:
+    print(f'Please run the following command and add it to your startup script: \n export PYTHONPATH=$PYTHONPATH:{dirname}')
+    exit()
 
 @gin.configurable
 class SupertMetric(Metric):

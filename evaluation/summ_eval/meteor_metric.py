@@ -12,9 +12,17 @@ import subprocess
 import sys
 import threading
 import psutil
+import requests
 from summ_eval.metric import Metric
 
 dirname = os.path.dirname(__file__)
+
+if not os.path.exists(os.path.join(dirname, "meteor-1.5.jar")):
+    print("Downloading the meteor jar")
+    url = 'https://github.com/Maluuba/nlg-eval/blob/master/nlgeval/pycocoevalcap/meteor/meteor-1.5.jar?raw=true'
+    r = requests.get(url)
+    with open(os.path.join(dirname, "meteor-1.5.jar"), "wb") as outputf:
+        outputf.write(r.content)
 
 def enc(s):
     return s.encode('utf-8')

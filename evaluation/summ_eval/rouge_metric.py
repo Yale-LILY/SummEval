@@ -8,7 +8,12 @@ from pyrouge import Rouge155
 from summ_eval.metric import Metric
 from summ_eval.test_util import rouge_empty
 
-ROUGE_HOME = os.environ['ROUGE_HOME']
+try:
+    ROUGE_HOME = os.environ['ROUGE_HOME']
+except:
+    dirname, _ = os.path.split(os.path.abspath(__file__))
+    print(f'Please run the following command and add it to your startup script: \n export ROUGE_HOME={os.path.join(dirname, "ROUGE-1.5.5/")}')
+    exit()
 
 @gin.configurable
 class RougeMetric(Metric):

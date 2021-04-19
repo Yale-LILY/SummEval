@@ -1,16 +1,28 @@
 
+from os import path
 from setuptools import setup
 from setuptools import find_packages
 
 
+
+# read the contents of your README file
+# https://packaging.python.org/guides/making-a-pypi-friendly-readme/
+this_directory = path.abspath(path.dirname(__file__))
+with open(path.join(this_directory, '..', 'README.md'), encoding='utf-8') as f:
+    long_description = f.read()
+
 setup(name='summ_eval',
-      version='0.1',
+      version='0.20',
       description='Toolkit for summarization evaluation', 
-      url='https://github.com/Alex-Fabbri/summ_eval.git', 
+      long_description=long_description,
+      long_description_content_type='text/markdown',
+      url='https://github.com/Yale-LILY/SummEval', 
       author='Alex Fabbri, Wojciech Kryściński', 
       author_email='alexander.fabbri@yale.edu, wojciech.kryscinski@salesforce.com',
       license='MIT',
       packages=find_packages(),
+      include_package_data=True,
+      zip_safe=False,
       install_requires=[
           'pyrouge',
           'bert-score', 
@@ -21,6 +33,7 @@ setup(name='summ_eval',
           'six', 
           'wmd',
           'stanza',
+          'sacremoses',
           'transformers>=2.2.0',
           'spacy==2.2.0',
           'sacrebleu',
@@ -28,6 +41,8 @@ setup(name='summ_eval',
           'click', 
           'nltk', 
           'scipy',
+          'sklearn',
+          'networkx',
           'blanc',
       ],
       entry_points={

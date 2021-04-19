@@ -1,12 +1,24 @@
 # pylint: disable=C0103
 import os
+import requests
 from multiprocessing import Pool
 from collections import Counter
 import gin
+import bz2
 from summ_eval.s3_utils import rouge_n_we, load_embeddings
 from summ_eval.metric import Metric
 
 dirname = os.path.dirname(__file__)
+
+if not os.path.exists(os.path.join(dirname, "embeddings")):
+    os.mkdir(os.path.join(dirname, "embeddings"))
+if not os.path.exists(os.path.join(dirname, "embeddings/deps.words")):
+    print("Downloading the embeddings; this may take a while")
+    url = "http://u.cs.biu.ac.il/~yogo/data/syntemb/deps.words.bz2"
+    r = requests.get(url)
+    d = bz2.decompress(r.content)
+    with open(os.path.join(dirname, "embeddings/deps.words"), "wb") as outputf:
+        outputf.write(d)
 
 @gin.configurable
 class RougeWeMetric(Metric):
