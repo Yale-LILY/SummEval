@@ -17,7 +17,7 @@ except:
 
 @gin.configurable
 class RougeMetric(Metric):
-    def __init__(self, rouge_dir=ROUGE_HOME, rouge_args=None, verbose=False):
+    def __init__(self, rouge_dir=ROUGE_HOME, rouge_args=None):
         """
         ROUGE metric
         Makes use of pyrouge: https://github.com/bheinzerling/pyrouge
@@ -29,8 +29,7 @@ class RougeMetric(Metric):
 
         """
         # 
-        log_level = logging.ERROR if not verbose else None
-        self.r = Rouge155(rouge_dir=rouge_dir, rouge_args=rouge_args, log_level=log_level)
+        self.r = Rouge155(rouge_dir=rouge_dir, rouge_args=rouge_args)
         self.rouge_args = rouge_args
 
     def evaluate_example(self, summary, reference):
