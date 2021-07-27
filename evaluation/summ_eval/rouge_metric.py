@@ -4,20 +4,21 @@ import tempfile
 import shutil
 import logging
 import gin
-from pyrouge import Rouge155
 from summ_eval.metric import Metric
 from summ_eval.test_util import rouge_empty
 
 try:
     ROUGE_HOME = os.environ['ROUGE_HOME']
+    from pyrouge import Rouge155
 except:
     dirname, _ = os.path.split(os.path.abspath(__file__))
     print(f'Please run the following command and add it to your startup script: \n export ROUGE_HOME={os.path.join(dirname, "ROUGE-1.5.5/")}')
+    print(f'Please also run this command: \n pip install -U  git+https://github.com/bheinzerling/pyrouge.git')
     exit()
 
 @gin.configurable
 class RougeMetric(Metric):
-    def __init__(self, rouge_dir=ROUGE_HOME, rouge_args=None):
+    def __init__(self, rouge_dir=ROUGE_HOME, rouge_args=None, verbose=False):
         """
         ROUGE metric
         Makes use of pyrouge: https://github.com/bheinzerling/pyrouge
@@ -29,7 +30,12 @@ class RougeMetric(Metric):
 
         """
         # 
-        self.r = Rouge155(rouge_dir=rouge_dir, rouge_args=rouge_args)
+        log_level = logging.ERROR if not verbose else None
+        try:
+            self.r = Rouge155(rouge_dir=rouge_dir, rouge_args=rouge_args, log_level=log_level)
+        except:
+            print(f'Please run this command: \n pip install -U  git+https://github.com/bheinzerling/pyrouge.git')
+            exit()
         self.rouge_args = rouge_args
 
     def evaluate_example(self, summary, reference):

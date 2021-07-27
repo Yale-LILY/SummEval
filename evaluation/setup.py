@@ -12,7 +12,7 @@ with open(path.join(this_directory, '..', 'README.md'), encoding='utf-8') as f:
     long_description = f.read()
 
 setup(name='summ_eval',
-      version='0.20',
+      version='0.50',
       description='Toolkit for summarization evaluation', 
       long_description=long_description,
       long_description_content_type='text/markdown',
@@ -24,7 +24,6 @@ setup(name='summ_eval',
       include_package_data=True,
       zip_safe=False,
       install_requires=[
-          'pyrouge',
           'bert-score', 
           'moverscore', 
           'gin-config', 

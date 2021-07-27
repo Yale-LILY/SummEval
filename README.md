@@ -4,9 +4,9 @@ Authors: [Alex Fabbri*](http://alex-fabbri.github.io/), [Wojciech Kryściński*]
 This project is a collaboration work between [Yale LILY Lab](https://yale-lily.github.io/) and [Salesforce Research](https://einstein.ai/). <br/><br/>
 
 <p align="center">
-<img src="assets/logo-lily.png" height="100" alt="LILY Logo" style="padding-right:160">
+<img src="https://raw.githubusercontent.com/Yale-LILY/SummEval/master/assets/logo-lily.png" height="100" alt="LILY Logo" style="padding-right:160">
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<img src="assets/logo-salesforce.svg" height="100" alt="Salesforce Logo"> 
+<img src="https://raw.githubusercontent.com/Yale-LILY/SummEval/master/assets/logo-salesforce.svg" height="100" alt="Salesforce Logo"> 
 </p>
 
 <sub><sup>\* - Equal contributions from authors</sup></sub>
