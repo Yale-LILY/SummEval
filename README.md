@@ -155,7 +155,7 @@ calc-scores --config-file=examples/basic.config --metrics "rouge" --summ-file su
 **NOTE**: if you're seeing slow-ish startup time, try commenting out the metrics you're not using in the config; otherwise this will load all modules. 
 
 
-Run ROUGE and BertScore on a jsonl file which contains "reference" and "summary" keys and write to `output.jsonl`. 
+Run ROUGE and BertScore on a `.jsonl` file which contains `reference` and `decoded` (i.e., system output) keys and write to `output.jsonl`.
 ```
 calc-scores --config-file=examples/basic.config --metrics "rouge, bert_score" --jsonl-file data.jsonl --output-file rouge_bertscore.jsonl
 ```
