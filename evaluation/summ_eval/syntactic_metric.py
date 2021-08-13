@@ -8,6 +8,8 @@ from stanza.server import CoreNLPClient
 from summ_eval.metric import Metric
 from summ_eval.syntactic_utils import get_stats
 
+dirname = os.path.dirname(__file__)
+
 if not os.path.exists(os.path.join(dirname, "stanford-corenlp-full-2018-10-05")):
     url = 'http://nlp.stanford.edu/software/stanford-corenlp-full-2018-10-05.zip'
     r = requests.get(url)
