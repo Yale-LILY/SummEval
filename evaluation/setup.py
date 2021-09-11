@@ -26,7 +26,7 @@ setup(name='summ_eval',
       zip_safe=False,
       install_requires=[
           'bert-score', 
-          'moverscore', 
+          'moverscore @ git+https://github.com/AIPHES/emnlp19-moverscore.git', 
           'gin-config', 
           'pytorch_pretrained_bert', 
           'psutil',

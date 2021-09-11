@@ -61,7 +61,7 @@ class MoverScoreMetric(Metric):
         idf_dict_ref = self.get_idf_dict(refs)
         scores = []
         if isinstance(references[0], list):
-            for reference, summary in zip([references, summaries]):
+            for reference, summary in zip(references, summaries):
                 s = self.word_mover_score(reference, [summary]*len(reference), idf_dict_ref, idf_dict_summ, \
                           stop_words=self.stop_words, n_gram=self.n_gram, remove_subwords=self.remove_subwords,\
                           batch_size=self.batch_size)
