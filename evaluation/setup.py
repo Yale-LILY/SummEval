@@ -2,7 +2,8 @@
 from os import path
 from setuptools import setup
 from setuptools import find_packages
-
+import pip
+pip.main(['install', 'cython'])
 
 
 # read the contents of your README file
@@ -39,8 +40,8 @@ setup(name='summ_eval',
           'pyemd==0.5.1',
           'click', 
           'nltk', 
-          'scipy==0.21.3',
-          'sklearn',
+          'scipy',
+          'scikit-learn==0.21.3',
           'networkx',
           'blanc',
       ],
