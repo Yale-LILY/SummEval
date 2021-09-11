@@ -2,6 +2,7 @@
 import os
 from collections import defaultdict
 import gin
+import numpy as np
 
 from summ_eval.metric import Metric
 
@@ -52,14 +53,23 @@ class MoverScoreMetric(Metric):
         return score_dict
 
     def evaluate_batch(self, summaries, references, aggregate=True):
+        refs = references
         if isinstance(references[0], list):
-            references = [" ".join(ref) for ref in references]
+            refs = [" ".join(ref) for ref in references]
             
         idf_dict_summ = self.get_idf_dict(summaries)
-        idf_dict_ref = self.get_idf_dict(references)
-        scores = self.word_mover_score(references, summaries, idf_dict_ref, idf_dict_summ, \
+        idf_dict_ref = self.get_idf_dict(refs)
+        scores = []
+        if isinstance(references[0], list):
+            for reference, summary in zip([references, summaries]):
+                s = self.word_mover_score(reference, [summary]*len(reference), idf_dict_ref, idf_dict_summ, \
                           stop_words=self.stop_words, n_gram=self.n_gram, remove_subwords=self.remove_subwords,\
                           batch_size=self.batch_size)
+                scores.append(np.mean(s))
+        else:
+            scores = self.word_mover_score(references, summaries, idf_dict_ref, idf_dict_summ, \
+                            stop_words=self.stop_words, n_gram=self.n_gram, remove_subwords=self.remove_subwords,\
+                            batch_size=self.batch_size)
         if aggregate:
             return {"mover_score": sum(scores)/len(scores)}
         else:
