@@ -9,7 +9,7 @@ dirname = os.path.dirname(__file__)
 
 @gin.configurable
 class MoverScoreMetric(Metric):
-    def __init__(self, version=1, stop_wordsf=os.path.join(dirname, '../examples/stopwords.txt'), \
+    def __init__(self, version=2, stop_wordsf=os.path.join(dirname, 'examples/stopwords.txt'), \
                  n_gram=1, remove_subwords=True, batch_size=48):
         """
         Mover Score metric
@@ -52,6 +52,9 @@ class MoverScoreMetric(Metric):
         return score_dict
 
     def evaluate_batch(self, summaries, references, aggregate=True):
+        if isinstance(references[0], list):
+            references = [" ".join(ref) for ref in references]
+            
         idf_dict_summ = self.get_idf_dict(summaries)
         idf_dict_ref = self.get_idf_dict(references)
         scores = self.word_mover_score(references, summaries, idf_dict_ref, idf_dict_summ, \
