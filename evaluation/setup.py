@@ -2,18 +2,16 @@
 from os import path
 from setuptools import setup
 from setuptools import find_packages
+import urllib.request
 import pip
 pip.main(['install', 'cython'])
 
 
-# read the contents of your README file
-# https://packaging.python.org/guides/making-a-pypi-friendly-readme/
-this_directory = path.abspath(path.dirname(__file__))
-with open(path.join(this_directory, '..', 'README.md'), encoding='utf-8') as f:
-    long_description = f.read()
+f = urllib.request.urlopen("https://raw.githubusercontent.com/Yale-LILY/SummEval/master/README.md")
+long_description = f.read()
 
 setup(name='summ_eval',
-      version='0.50',
+      version='0.80',
       description='Toolkit for summarization evaluation', 
       long_description=long_description,
       long_description_content_type='text/markdown',
