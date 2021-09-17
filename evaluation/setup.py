@@ -2,7 +2,8 @@
 from os import path
 from setuptools import setup
 from setuptools import find_packages
-
+import pip
+pip.main(['install', 'cython'])
 
 
 # read the contents of your README file
@@ -25,7 +26,7 @@ setup(name='summ_eval',
       zip_safe=False,
       install_requires=[
           'bert-score', 
-          'moverscore', 
+          'moverscore @ git+https://github.com/AIPHES/emnlp19-moverscore.git', 
           'gin-config', 
           'pytorch_pretrained_bert', 
           'psutil',
@@ -40,7 +41,7 @@ setup(name='summ_eval',
           'click', 
           'nltk', 
           'scipy',
-          'sklearn',
+          'scikit-learn==0.21.3',
           'networkx',
           'blanc',
       ],
