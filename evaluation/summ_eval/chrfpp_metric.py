@@ -30,7 +30,7 @@ class ChrfppMetric(Metric):
 
     def evaluate_batch(self, summaries, references, aggregate=True):
         if aggregate:
-            score = sacrebleu.corpus_chrf(summaries, references, order=self.ncorder, beta=self.beta)
+            score = sacrebleu.corpus_chrf(summaries, [references], char_order=self.ncorder, word_order=0, beta=self.beta, remove_whitespace=False)
             score_dict = {"chrf": score.score}
             return score_dict
         else:
