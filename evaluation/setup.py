@@ -8,7 +8,7 @@ pip.main(['install', 'cython'])
 
 
 f = urllib.request.urlopen("https://raw.githubusercontent.com/Yale-LILY/SummEval/master/README.md")
-long_description = f.read()
+long_description = f.read().decode("utf-8")
 
 setup(name='summ_eval',
       version='0.80',
