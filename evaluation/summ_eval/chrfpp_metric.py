@@ -24,13 +24,13 @@ class ChrfppMetric(Metric):
     def evaluate_example(self, summary, reference):
         if not isinstance(reference, list):
             reference = [reference]
-        score = sacrebleu.sentence_chrf(summary, reference, order=self.ncorder, beta=self.beta)
+        score = sacrebleu.sentence_chrf(summary, reference, char_order=self.ncorder, word_order=0, beta=self.beta)
         score_dict = {"chrf": score.score}
         return score_dict
 
     def evaluate_batch(self, summaries, references, aggregate=True):
         if aggregate:
-            score = sacrebleu.corpus_chrf(summaries, [references], char_order=self.ncorder, word_order=0, beta=self.beta, remove_whitespace=False)
+            score = sacrebleu.corpus_chrf(summaries, [references], char_order=self.ncorder, word_order=0, beta=self.beta)
             score_dict = {"chrf": score.score}
             return score_dict
         else:
