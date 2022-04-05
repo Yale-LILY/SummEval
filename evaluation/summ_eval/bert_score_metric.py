@@ -47,8 +47,8 @@ class BertScoreMetric(Metric):
                                                 nthreads=self.nthreads, lang=self.lang, return_hash=True,
                                                 rescale_with_baseline=self.rescale_with_baseline)
         print(f"hash_code: {hash_code}")
-        score = [{"bert_score_precision": p.cpu().item(), "bert_score_recall": r.cpu().item(), "bert_score_f1": \
-                 f.cpu().item()} for (p, r, f) in all_preds]
+        score = {"bert_score_precision": all_preds[0].cpu().item(), "bert_score_recall": all_preds[1].cpu().item(), "bert_score_f1":
+                all_preds[2].cpu().item()}
         return score
 
     def evaluate_batch(self, summaries, references, aggregate=True):

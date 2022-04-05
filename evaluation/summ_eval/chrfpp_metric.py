@@ -1,3 +1,4 @@
+
 # pylint: disable=C0103
 from multiprocessing import Pool
 import gin
@@ -6,7 +7,7 @@ from summ_eval.metric import Metric
 
 @gin.configurable
 class ChrfppMetric(Metric):
-    def __init__(self, ncorder=6, beta=2, n_workers=24):
+    def __init__(self, ncorder=6, beta=2, n_workers=24, remove_whitespace=True):
         """
         Chrf++ metric
         Wrapper around sacrebleu: https://github.com/mjpost/sacrebleu
@@ -20,17 +21,20 @@ class ChrfppMetric(Metric):
         self.ncorder = ncorder
         self.beta = beta
         self.n_workers = n_workers
+        self.remove_whitespace = remove_whitespace
 
     def evaluate_example(self, summary, reference):
         if not isinstance(reference, list):
             reference = [reference]
-        score = sacrebleu.sentence_chrf(summary, reference, order=self.ncorder, beta=self.beta)
+        score = sacrebleu.sentence_chrf(summary, reference, char_order=self.ncorder, word_order=0, \
+            beta=self.beta, remove_whitespace=self.remove_whitespace)
         score_dict = {"chrf": score.score}
         return score_dict
 
     def evaluate_batch(self, summaries, references, aggregate=True):
         if aggregate:
-            score = sacrebleu.corpus_chrf(summaries, references, order=self.ncorder, beta=self.beta)
+            score = sacrebleu.corpus_chrf(summaries, [references], char_order=self.ncorder, \
+                word_order=0, beta=self.beta, remove_whitespace=self.remove_whitespace)
             score_dict = {"chrf": score.score}
             return score_dict
         else:
