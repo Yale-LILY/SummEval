@@ -6,10 +6,18 @@ import logging
 import gin
 from summ_eval.metric import Metric
 from summ_eval.test_util import rouge_empty
+import subprocess
 
 try:
     ROUGE_HOME = os.environ['ROUGE_HOME']
     from pyrouge import Rouge155
+    if not os.path.exists(ROUGE_HOME):
+        print("Preparing ROUGE Perl script - this will take a few seconds")
+        subprocess.run(["curl", "-L", "https://github.com/Yale-LILY/SummEval/tarball/master", "-o", "project.tar.gz", "-s"])
+        subprocess.run(["tar", "-xzf", "project.tar.gz"])
+        subprocess.run(["mv", "Yale-LILY-SummEval-7e4330d/evaluation/summ_eval/ROUGE-1.5.5/", ROUGE_HOME])
+        subprocess.run(["rm", "project.tar.gz"])
+        subprocess.run(["rm", "-rf", "Yale-LILY-SummEval-7e4330d/"])
 except:
     dirname, _ = os.path.split(os.path.abspath(__file__))
     print(f'Please run the following command and add it to your startup script: \n export ROUGE_HOME={os.path.join(dirname, "ROUGE-1.5.5/")}')
