@@ -57,8 +57,8 @@ class DataStatsMetric(Metric):
         density = fragments.density()
         compression = fragments.compression()
         score_dict = {"coverage": coverage, "density": density, "compression": compression}
-        tokenized_summary = fragments.summary
-        tokenized_text = fragments.text
+        tokenized_summary = fragments._norm_summary
+        tokenized_text = fragments._norm_text
         score_dict["summary_length"] = len(tokenized_summary)
         for i in range(1, self.n_gram + 1):
             input_ngrams = list(find_ngrams(tokenized_text, i))
