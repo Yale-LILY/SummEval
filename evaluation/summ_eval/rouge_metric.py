@@ -13,7 +13,7 @@ try:
     from pyrouge import Rouge155
     if not os.path.exists(ROUGE_HOME):
         print("Preparing ROUGE Perl script - this will take a few seconds")
-        subprocess.run(["curl", "-L", "https://github.com/Yale-LILY/SummEval/tarball/master", "-o", "project.tar.gz", "-s"])
+        subprocess.run(["curl", "-L", "https://github.com/Yale-LILY/SummEval/tarball/7e4330d", "-o", "project.tar.gz", "-s"])
         subprocess.run(["tar", "-xzf", "project.tar.gz"])
         subprocess.run(["mv", "Yale-LILY-SummEval-7e4330d/evaluation/summ_eval/ROUGE-1.5.5/", ROUGE_HOME])
         subprocess.run(["rm", "project.tar.gz"])
