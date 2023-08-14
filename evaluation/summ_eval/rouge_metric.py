@@ -1,5 +1,6 @@
 # pylint: disable=W0102,C0301,W1401,C0303,C0103
 import os
+from pathlib import Path
 import tempfile
 import shutil
 import logging
@@ -7,22 +8,34 @@ import gin
 from summ_eval.metric import Metric
 from summ_eval.test_util import rouge_empty
 import subprocess
+import logging
 
-try:
-    ROUGE_HOME = os.environ['ROUGE_HOME']
-    from pyrouge import Rouge155
-    if not os.path.exists(ROUGE_HOME):
-        print("Preparing ROUGE Perl script - this will take a few seconds")
-        subprocess.run(["curl", "-L", "https://github.com/Yale-LILY/SummEval/tarball/master", "-o", "project.tar.gz", "-s"])
+
+logger = logging.getLogger()
+
+ROUGE_HOME = os.environ['ROUGE_HOME'] or Path(__file__).parent / "ROUGE-1.5.5"
+if "ROUGE_HOME" not in os.environ:
+    logger.info("ROUGE_HOME not set, using default location %s", ROUGE_HOME)
+
+if not os.path.exists(ROUGE_HOME):
+    logger.info("ROUGE_HOME=%s not a directory.", ROUGE_HOME)
+    try:
+        logger.info("Installing rouge Perl script to {ROUGE_HOME} - this will take a few seconds")
+        subprocess.run(["curl", "-L", "https://github.com/Yale-LILY/SummEval/tarball/7e4330d", "-o", "project.tar.gz", "-s"])
         subprocess.run(["tar", "-xzf", "project.tar.gz"])
         subprocess.run(["mv", "Yale-LILY-SummEval-7e4330d/evaluation/summ_eval/ROUGE-1.5.5/", ROUGE_HOME])
         subprocess.run(["rm", "project.tar.gz"])
         subprocess.run(["rm", "-rf", "Yale-LILY-SummEval-7e4330d/"])
-except:
-    dirname, _ = os.path.split(os.path.abspath(__file__))
-    print(f'Please run the following command and add it to your startup script: \n export ROUGE_HOME={os.path.join(dirname, "ROUGE-1.5.5/")}')
-    print(f'Please also run this command: \n pip install -U  git+https://github.com/bheinzerling/pyrouge.git')
-    exit()
+    except subprocess.CalledProcessError as err:
+        logger.error("Failed to install the rouge Perl script; please install manually and set the ROUGE_HOME environment variable.")
+        raise err
+
+try:
+    from pyrouge import Rouge155
+except ImportError as err:
+    logger.error("pyrouge not installed; please install with `pip install -U  git+https://github.com/bheinzerling/pyrouge.git`.")
+    raise err
+
 
 @gin.configurable
 class RougeMetric(Metric):
