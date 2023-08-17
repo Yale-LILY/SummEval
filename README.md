@@ -1,32 +1,175 @@
 # Summarization Repository 
-Authors: [Alex Fabbri*](http://alex-fabbri.github.io/), [Wojciech Kryściński*](https://twitter.com/iam_wkr), [Bryan McCann](https://bmccann.github.io/), [Caiming Xiong](http://cmxiong.com/), [Richard Socher](https://www.socher.org/), and [Dragomir Radev](http://www.cs.yale.edu/homes/radev/)<br/>
+This repo was initially released with the [SummEval](#citation) paper. It
+contains the python package [`summ-eval`](https://pypi.org/project/summ-eval/),
+a toolkit for summarization evaluation, as well as the [dataset](#dataset) used
+in the original publication.
 
-This project is a collaboration work between [Yale LILY Lab](https://yale-lily.github.io/) and [Salesforce Research](https://einstein.ai/). <br/><br/>
-
-<p align="center">
-<img src="https://raw.githubusercontent.com/Yale-LILY/SummEval/master/assets/logo-lily.png" height="100" alt="LILY Logo" style="padding-right:160">
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<img src="https://raw.githubusercontent.com/Yale-LILY/SummEval/master/assets/logo-salesforce.svg" height="100" alt="Salesforce Logo"> 
-</p>
-
-<sub><sup>\* - Equal contributions from authors</sup></sub>
 
 ## Table of Contents
 
-1. [Updates](#updates)
-2. [Data](#data)
-3. [Evaluation Toolkit](#evaluation-toolkit)
-4. [Citation](#citation)
-5. [Get Involved](#get-involved)
+1. [Evaluation Toolkit](#evaluation-toolkit)
+2. [Dataset](#dataset)
+3. [Contribute](#contribute)
+4. [Updates](#updates)
+5. [Citation](#citation)
 
-## Updates
-_04/19/2020_ - Updated the [human annotation file](https://drive.google.com/file/d/1d2Iaz3jNraURP1i7CfTqPIj8REZMJ3tS/view?usp=sharing) to include all models from paper and metric scores.<br/>
-_04/19/2020_ - SummEval is now pip-installable! Check out the [pypi page](https://pypi.org/project/summ-eval/).<br/>
-_04/09/2020_ - Please see [this comment](https://github.com/Yale-LILY/SummEval/issues/13#issuecomment-812918298) with code for computing system-level metric correlations!  <br/>
-_11/12/2020_ - Added the reference-less BLANC and SUPERT metrics! <br/>
-_7/16/2020_ - Initial commit! :) 
 
-## Data
+## `summ-eval`: An Evaluation Toolkit
+
+This toolkit for summarization evaluation is provided to unify metrics and promote robust comparison of summarization
+systems. The toolkit contains popular and recent metrics for summarization as well as several machine translation metrics.
+We invite contributions of additional metrics, please [contribute](#contribute).
+
+The metrics currently included in the tookit, with the associated paper and code used within the toolkit, and where they
+can be found within the package.
+|Metric|Paper|Code|
+|-|-|-|
+|ROUGE|[ROUGE: A Package for Automatic Evaluation of Summaries](https://www.aclweb.org/anthology/W04-1013.pdf)|[Link](https://github.com/bheinzerling/pyrouge/tree/master/pyrouge)|
+|ROUGE-we|[Better Summarization Evaluation with Word Embeddings for ROUGE](https://www.aclweb.org/anthology/D15-1222.pdf)|[Link](https://github.com/UKPLab/emnlp-ws-2017-s3/blob/master/S3/ROUGE.py#L152)|
+|MoverScore|[MoverScore: Text Generation Evaluating with Contextualized Embeddings and Earth Mover Distance](https://www.aclweb.org/anthology/D19-1053.pdf)|[Link](https://github.com/AIPHES/emnlp19-moverscore/)|
+|BertScore|[BertScore: Evaluating Text Generation with BERT](https://arxiv.org/pdf/1904.09675.pdf)|[Link](https://github.com/Tiiiger/bert_score)|
+|Sentence Mover's Similarity|[Sentence Mover’s Similarity: Automatic Evaluation for Multi-Sentence Texts](https://www.aclweb.org/anthology/P19-1264.pdf)|[Link](https://github.com/eaclark07/sms)|
+|SummaQA|[Answers Unite! Unsupervised Metrics for Reinforced Summarization Models](https://www.aclweb.org/anthology/D19-1320.pdf)|[Link](https://github.com/recitalAI/summa-qa)|
+|BLANC|[Fill in the BLANC: Human-free quality estimation of document summaries](https://arxiv.org/pdf/2002.09836.pdf)|[Link](https://github.com/PrimerAI/blanc)|
+|SUPERT|[SUPERT: Towards New Frontiers in Unsupervised Evaluation Metrics for Multi-Document Summarization](https://www.aclweb.org/anthology/2020.acl-main.124.pdf)|[Link](https://github.com/yg211/acl20-ref-free-eval)|
+|METEOR|[METEOR: An Automatic Metric for MT Evaluation with Improved Correlation with Human Judgments ](https://www.aclweb.org/anthology/W05-0909.pdf)|[Link](https://github.com/Maluuba/nlg-eval/tree/master/nlgeval/pycocoevalcap/meteor)|
+|S<sup>3</sup>|[Learning to Score System Summaries for Better Content Selection Evaluation](https://www.aclweb.org/anthology/W17-4510/)|[Link](https://github.com/UKPLab/emnlp-ws-2017-s3)|
+|Misc. statistics<br/>(extractiveness, novel n-grams, repetition, length)|[Newsroom: A Dataset of 1.3 Million Summaries with Diverse Extractive Strategies](https://www.aclweb.org/anthology/N18-1065/)| [Link](https://github.com/lil-lab/newsroom)|
+|Syntactic Evaluation|[Automatic Analysis of Syntactic Complexity in Second Language writing](https://www.benjamins.com/catalog/ijcl.15.4.02lu)|[Link](http://www.personal.psu.edu/xxl13/downloads/L2SCA-2016-06-30.tgz)|
+|CIDer|[CIDEr: Consensus-based Image Description Evaluation](https://www.cv-foundation.org/openaccess/content_cvpr_2015/papers/Vedantam_CIDEr_Consensus-Based_Image_2015_CVPR_paper.pdf)|[Link](https://github.com/Maluuba/nlg-eval/tree/master/nlgeval/pycocoevalcap/cider)|
+|CHRF|[CHRF++: words helping character n-grams](https://www.statmt.org/wmt17/pdf/WMT70.pdf)|[Link](https://github.com/m-popovic/chrF)|
+|BLEU|[BLEU: a Method for Automatic Evaluation of Machine Translation](https://www.aclweb.org/anthology/P02-1040.pdf)|[Link](https://github.com/mjpost/sacreBLEU)|
+
+
+## Setup
+
+You can install the base package `summ_eval` via pip:
+```bash
+pip install summ-eval
+```
+
+You can also install summ_eval from source:
+
+```
+git clone https://github.com/Yale-LILY/SummEval.git
+cd evaluation
+pip install -e .
+```
+
+Additional setup is required for some metrics. Many of these should run when first
+imported. If you run into issues, please create an issue on this repository.
+
+### Rouge 
+
+The original Perl rouge implementation is used to ensure consistency with previous work.
+This requires the perl scripts to be downloaded from this repository and the location
+of the download to be set as `ROUGE_HOME`. These steps should happen when you
+first import the `rouge_metric` sub-module.
+
+Additionally, the XML:Parser Perl package is required. This can be installed with
+```bash
+apt-get install libxml-parser-perl
+```
+in ubuntu systems, at least.
+
+Finally, the `pyrouge` python package is required. This can be installed manualy
+or with the `summ-eval[perl-rouge]` extra.
+
+
+### S3; Sentence Mover's Similarity and Supert
+These packages all require NLTK's `stopwords` corpus. This can be installed with
+```bash
+python -m nltk.downloader stopwords
+```
+
+## Usage
+
+### As a package
+Each metric can be imported and instantiated as a class.
+
+```python
+from summ_eval.selected_metric import SelectedMetric
+metric = SelectedMetric()
+```
+
+With the metric instantiated, you can evaluate a batch of summaries and references, or a single example.
+```python
+batch_summaries = ["This is one summary", "This is another summary"]
+batch_references = ["This is one reference", "This is another"]
+
+batch_result_dict = metric.evaluate_batch(batch_summaries, batch_references)
+single_result_dict = metric.evaluate_example(summaries[0], references[0])
+```
+
+
+Each metric has a `supports_multi_ref` property to indicate whether it supports multiple references.
+If it does, then a list of references can be passed to `evaluate` and `evaluate_batch` for each
+summary.
+
+```python
+assert metric.supports_multi_ref
+multi_references = [
+    ["This is ref 1 for summ 1", "This is ref 2 for summ 1"],
+    ["This is ref 1 for summ 2", "This is ref 2 for summ 2"]
+]
+batch_result_dict = metric.evaluate_batch(batch_summaries, multi_references)
+single_result_dict = metric.evaluate_example(summaries[0], multi_references[0])
+```
+
+### As a CLI
+If you want to use the evaluation metrics from a shell, we have you covered!
+We provide a command-line interface, `calc-scores`. Use
+```bash
+calc-scores --help
+```
+for a full list of options.
+
+TLDR: you will need to specify
+* `--summ-file`: a file containing summaries, one per line
+* `--ref-file`: a file containing references, one per line
+* `--output-file`: a file to write the results to
+* `--metrics`: a comma-separated list of metrics to use
+
+For example, to run the ROUGE metric and write the results to `rouge.jsonl`, analogous to [files2rouge](https://github.com/pltrdy/files2rouge). 
+```bash
+calc-scores --config-file=examples/basic.config --metrics "rouge" --summ-file summ_eval/1.summ --ref-file summ_eval/1.ref --output-file rouge.jsonl --eos " . " --aggregate True
+```
+
+Other options exist for file I/O convenience as well as configuration.
+
+To run ROUGE and BertScore on a `.jsonl` file which contains `reference` and `decoded` keys (i.e., system output) and write to `output.jsonl`.
+```bash
+calc-scores --config-file=examples/basic.config --metrics "rouge, bert_score" --jsonl-file data.jsonl --output-file rouge_bertscore.jsonl
+```
+
+The CLI makes use of [gin config](https://github.com/google/gin-config) files to more conveniently set metric parameters.
+
+**NOTE**: if you're seeing slow-ish startup time, try commenting out the metrics you're not using in the config; otherwise this will load all modules. 
+
+**NOTE** currently the command-line tool does not support multiple references for simplicity of the interface. This will
+have to be completed with a python script.
+
+
+### Metric naming
+The metrics can be imported from
+|Metric|Import|CLI string
+|-|-|-|
+|ROUGE|`from summ_eval.rouge_metric import RougeMetric`|`rouge`|
+|ROUGE-we|`from summ_eval.rouge_metric import RougeWeMetric`|`rouge_we`|
+|MoverScore|`from summ_eval.mover_score import MoverScoreMetric`|`mover_score`|
+|BertScore|`from summ_eval.bert_score import BertScoreMetric`|`bert_score`|
+|Sentence Mover's Similarity|`from summ_eval.sms_metric import SmsMetric`|`sms`|
+|SummaQA|`from summ_eval.summa_qa_metric import SummaQaMetric`|`summa_qa`|
+|BLANC|`from summ_eval.blanc_metric import BlancMetric`|`blanc`|
+|SUPERT|`from summ_eval.supert_metric import SupertMetric`|`supert`|
+|METEOR|`from summ_eval.meteor_metric import MeteorMetric`|`meteor`|
+|S<sup>3</sup>|`from summ_eval.s3_metric import S3Metric`|`s3`|
+|Misc. statistics<br/>(extractiveness, novel n-grams, repetition, length)|`from summ_eval.misc_stats import MiscStatsMetric`|`misc_stats`|
+|Syntactic Evaluation|`from summ_eval.syntactic_metric import SyntacticMetric`|`syntactic`|
+|CIDer|`from summ_eval.cider_metric import CiderMetric`|`cider`|
+|CHRF|`from summ_eval.chrf_metric import ChrfMetric`|`chrf`|
+|BLEU|`from summ_eval.bleu_metric import BleuMetric`|`bleu`|
+## SummEval: a Dataset
 As part of this release, we share summaries generated by recent summarization model trained on the CNN/DailyMail dataset [here](#model-outputs).</br>
 We also share human annotations, collected from both crowdsource workers and experts [here](#human-annotations).
 
@@ -96,112 +239,48 @@ Example call for _human annotations_:
 `python3 data_processing/pair_data.py --data_annotations <file-with-data-annotations> --story_files <dir-with-stories>`
 
 
-## Evaluation Toolkit
 
-We provide a toolkit for summarization evaluation to unify metrics and promote robust comparison of summarization systems. The toolkit contains popular and recent metrics for summarization as well as several machine translation metrics.
+## Contribute
 
-### Metrics ###
-Below are the metrics included in the tookit, followed by the associated paper and code used within the toolkit:
-|Metric|Paper|Code|
-|-|-|-|
-|ROUGE|[ROUGE: A Package for Automatic Evaluation of Summaries](https://www.aclweb.org/anthology/W04-1013.pdf)|[Link](https://github.com/bheinzerling/pyrouge/tree/master/pyrouge)|
-|ROUGE-we|[Better Summarization Evaluation with Word Embeddings for ROUGE](https://www.aclweb.org/anthology/D15-1222.pdf)|[Link](https://github.com/UKPLab/emnlp-ws-2017-s3/blob/master/S3/ROUGE.py#L152)|
-|MoverScore|[MoverScore: Text Generation Evaluating with Contextualized Embeddings and Earth Mover Distance](https://www.aclweb.org/anthology/D19-1053.pdf)|[Link](https://github.com/AIPHES/emnlp19-moverscore/)|
-|BertScore|[BertScore: Evaluating Text Generation with BERT](https://arxiv.org/pdf/1904.09675.pdf)|[Link](https://github.com/Tiiiger/bert_score)|
-|Sentence Mover's Similarity|[Sentence Mover’s Similarity: Automatic Evaluation for Multi-Sentence Texts](https://www.aclweb.org/anthology/P19-1264.pdf)|[Link](https://github.com/eaclark07/sms)|
-|SummaQA|[Answers Unite! Unsupervised Metrics for Reinforced Summarization Models](https://www.aclweb.org/anthology/D19-1320.pdf)|[Link](https://github.com/recitalAI/summa-qa)|
-|BLANC|[Fill in the BLANC: Human-free quality estimation of document summaries](https://arxiv.org/pdf/2002.09836.pdf)|[Link](https://github.com/PrimerAI/blanc)|
-|SUPERT|[SUPERT: Towards New Frontiers in Unsupervised Evaluation Metrics for Multi-Document Summarization](https://www.aclweb.org/anthology/2020.acl-main.124.pdf)|[Link](https://github.com/yg211/acl20-ref-free-eval)|
-|METEOR|[METEOR: An Automatic Metric for MT Evaluation with Improved Correlation with Human Judgments ](https://www.aclweb.org/anthology/W05-0909.pdf)|[Link](https://github.com/Maluuba/nlg-eval/tree/master/nlgeval/pycocoevalcap/meteor)|
-|S<sup>3</sup>|[Learning to Score System Summaries for Better Content Selection Evaluation](https://www.aclweb.org/anthology/W17-4510/)|[Link](https://github.com/UKPLab/emnlp-ws-2017-s3)|
-|Misc. statistics<br/>(extractiveness, novel n-grams, repetition, length)|[Newsroom: A Dataset of 1.3 Million Summaries with Diverse Extractive Strategies](https://www.aclweb.org/anthology/N18-1065/)| [Link](https://github.com/lil-lab/newsroom)|
-|Syntactic Evaluation|[Automatic Analysis of Syntactic Complexity in Second Language writing](https://www.benjamins.com/catalog/ijcl.15.4.02lu)|[Link](http://www.personal.psu.edu/xxl13/downloads/L2SCA-2016-06-30.tgz)|
-|CIDer|[CIDEr: Consensus-based Image Description Evaluation](https://www.cv-foundation.org/openaccess/content_cvpr_2015/papers/Vedantam_CIDEr_Consensus-Based_Image_2015_CVPR_paper.pdf)|[Link](https://github.com/Maluuba/nlg-eval/tree/master/nlgeval/pycocoevalcap/cider)|
-|CHRF|[CHRF++: words helping character n-grams](https://www.statmt.org/wmt17/pdf/WMT70.pdf)|[Link](https://github.com/m-popovic/chrF)|
-|BLEU|[BLEU: a Method for Automatic Evaluation of Machine Translation](https://www.aclweb.org/anthology/P02-1040.pdf)|[Link](https://github.com/mjpost/sacreBLEU)|
+Please create a GitHub issue if you have any questions, suggestions, requests or bug-reports. 
+We welcome PRs!
 
 
-#### SETUP ####
-
-You can install summ_eval via pip:
+### Setup
+The project uses [poetry](https://python-poetry.org/) for dependency management so
+after installing poetry, installing the project dependencies is as simple as
 ```bash
-pip install summ-eval
+poetry install --all-extras
 ```
 
-You can also install summ_eval from source:
-
-```
-git clone https://github.com/Yale-LILY/SummEval.git
-cd evaluation
-pip install -e .
-```
+### Testing
 
 You can test your installation (assuming you're in the `./summ_eval` folder) and get familiar with the library through `tests/`
 
 ```
-python -m unittest discover
+poetry run python -m unittest discover
 ```
 
-
-### Command-line interface
-We provide a command-line interface `calc-scores` which makes use of [gin config](https://github.com/google/gin-config) files to set metric parameters. 
-
-##### Examples
-Run ROUGE on given source and target files and write to `rouge.jsonl`, analogous to [files2rouge](https://github.com/pltrdy/files2rouge). 
-```
-calc-scores --config-file=examples/basic.config --metrics "rouge" --summ-file summ_eval/1.summ --ref-file summ_eval/1.ref --output-file rouge.jsonl --eos " . " --aggregate True
-```
-
-**NOTE**: if you're seeing slow-ish startup time, try commenting out the metrics you're not using in the config; otherwise this will load all modules. 
-
-
-Run ROUGE and BertScore on a `.jsonl` file which contains `reference` and `decoded` (i.e., system output) keys and write to `output.jsonl`.
-```
-calc-scores --config-file=examples/basic.config --metrics "rouge, bert_score" --jsonl-file data.jsonl --output-file rouge_bertscore.jsonl
-```
-
-For a full list of options, please run:
-```
-calc-scores --help
-```
-
-
-### For use in scripts
-If you want to use the evaluation metrics as part of other scripts, we have you covered!
-
-```
-from summ_eval.rouge_metric import RougeMetric
-rouge = RougeMetric()
-```
-
-#### Evaluate on a batch
-```
-summaries = ["This is one summary", "This is another summary"]
-references = ["This is one reference", "This is another"]
-
-rouge_dict = rouge.evaluate_batch(summaries, references)
-```
-
-#### Evaluate on a single example
-```
-rouge_dict = rouge.evaluate_example(summaries[0], references[0])
-```
-
-
-#### Evaluate with multiple references
-Currently the command-line tool does not use multiple references for simplicity. Each metric has a `supports_multi_ref` property to tell you if it supports multiple references. 
-
-```
-print(rouge.supports_multi_ref) # True
-multi_references = [["This is ref 1 for summ 1", "This is ref 2 for summ 1"], ["This is ref 1 for summ 2", "This is ref 2 for summ 2"]]
-rouge_dict = rouge.evaluate_batch(summaries, multi_references)
-```
-
-
-
+## Updates
+_04/19/2020_ - Updated the [human annotation file](https://drive.google.com/file/d/1d2Iaz3jNraURP1i7CfTqPIj8REZMJ3tS/view?usp=sharing) to include all models from paper and metric scores.<br/>
+_04/19/2020_ - SummEval is now pip-installable! Check out the [pypi page](https://pypi.org/project/summ-eval/).<br/>
+_04/09/2020_ - Please see [this comment](https://github.com/Yale-LILY/SummEval/issues/13#issuecomment-812918298) with code for computing system-level metric correlations!  <br/>
+_11/12/2020_ - Added the reference-less BLANC and SUPERT metrics! <br/>
+_7/16/2020_ - Initial commit! :) 
 
 
 ## Citation
+[SummEval: Re-evaluating Summarization Evaluation](https://direct.mit.edu/tacl/article/doi/10.1162/tacl_a_00373/100686)
+
+Authors: [Alex Fabbri*](http://alex-fabbri.github.io/), [Wojciech Kryściński*](https://twitter.com/iam_wkr), [Bryan McCann](https://bmccann.github.io/), [Caiming Xiong](http://cmxiong.com/), [Richard Socher](https://www.socher.org/), and [Dragomir Radev](http://www.cs.yale.edu/homes/radev/)<br/>
+<sub><sup>\* - Equal contributions from authors</sup></sub>
+
+The SummEval project is a collaboration between [Yale LILY Lab](https://yale-lily.github.io/) and [Salesforce Research](https://einstein.ai/). <br/><br/>
+<p align="center">
+<img src="https://raw.githubusercontent.com/Yale-LILY/SummEval/master/assets/logo-lily.png" height="100" alt="LILY Logo" style="padding-right:160">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<img src="https://raw.githubusercontent.com/Yale-LILY/SummEval/master/assets/logo-salesforce.svg" height="100" alt="Salesforce Logo"> 
+</p>
 
 ```
 @article{fabbri2020summeval,
@@ -211,8 +290,3 @@ rouge_dict = rouge.evaluate_batch(summaries, multi_references)
   year={2020}
 }
 ```
-
-### Get Involved
-
-Please create a GitHub issue if you have any questions, suggestions, requests or bug-reports. 
-We welcome PRs!
