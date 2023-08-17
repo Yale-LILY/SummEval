@@ -1,6 +1,6 @@
 import numpy as np
 import torch
-from sentence_transformers.losses import BatchHardTripletLoss
+from summ_eval.sentence_transformers.losses import BatchHardTripletLoss
 
 # Test-suite from https://github.com/omoindrot/tensorflow-triplet-loss/blob/master/model/tests/test_triplet_loss.py
 # Skipped the `test_gradients_pairwise_distances()` test since it's trivial to see if your model loss turns NaN

@@ -2,15 +2,17 @@
 from collections import Counter
 from multiprocessing import Pool
 import gin
+import logging
 import spacy
 from summ_eval.data_stats_utils import Fragments
 from summ_eval.metric import Metric
 
+logger = logging.getLogger(__name__)
+
 try:
     _en = spacy.load('en_core_web_sm')
 except OSError:
-    print('Downloading the spacy en_core_web_sm model\n'
-        "(don't worry, this will only happen once)", file=stderr)
+    logger.info("Downloading the spacy en_core_web_sm model\n (don't worry, this will only happen once)")
     from spacy.cli import download
     download('en_core_web_sm')
     _en = spacy.load('en_core_web_sm')

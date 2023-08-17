@@ -42,6 +42,8 @@ setup(name='summ_eval',
           'scipy',
           'networkx',
           'blanc',
+          'scikit-learn',
+          'wmd',
       ],
       entry_points={
           'console_scripts': [
