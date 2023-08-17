@@ -1,0 +1,58 @@
+[tool.poetry]
+name = "summ-eval"
+version = "0.893"
+description = "Toolkit for summarization evaluation"
+authors = ["Alex Fabbri <alexander.fabbri@yale.edu>, Wojciech Kryściński <wojciech.kryscinski@salesforce.com>"]
+license = "MIT"
+readme = "../README.md"
+packages = [{include = "summ_eval"}]
+
+
+[tool.poetry.group.dev]
+optional = true
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.4.0"
+
+
+[tool.project.urls]
+home = "https://github.com/Yale-LILY/SummEval"
+repo = "https://github.com/Yale-LILY/SummEval"
+
+[tool.poetry.dependencies]
+python = ">=3.9,<3.13"
+bert-score = "^0.3.13"
+gin-config = "^0.5.0"
+moverscore = "^1.0.3"
+pytorch-pretrained-bert = "^0.6.2"
+psutil = "^5.9.5"
+six = "^1.16.0"
+numpy = ">=1.11.0"
+stanza = "^1.5.0"
+sacremoses = "^0.0.53"
+transformers = ">=2.2.0"
+spacy = ">=2.2.0"
+sacrebleu = "^2.3.1"
+pyemd = "^1.0.0"
+click = "^8.1.6"
+nltk = "^3.8.1"
+cython = "^3.0.0"
+scipy = "^1.11.1"
+networkx = "^3.1"
+blanc = "^0.3.3"
+wmd = {git = "https://github.com/src-d/wmd-relax.git"} # Update to >1.3.2 when available
+scikit-learn = "^1.3.0"
+pyrouge = {git = "https://github.com/bheinzerling/pyrouge.git", optional = true}
+
+
+[tool.poetry.extras]
+rouge = [ "pyrouge" ]
+
+
+[tool.poetry.scripts]
+calc-scores = 'summ_eval.calc_scores:cli_main'
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
