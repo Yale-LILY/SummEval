@@ -1,0 +1,7 @@
+# python cache
+__pycache__
+
+# Downloaded models and data
+meteor-1.5.jar
+stanford-corenlp-full-2018-10-05
+deps.words
