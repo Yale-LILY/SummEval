@@ -93,6 +93,13 @@ To do this, `./evaluation/summ_eval/` must be added to the python path.
 This can be done either manually with `export PYTHONPATH=$PYTHONPATH:./evaluation/summ_eval/` or
 will be done automatically when `summ_eval.supert_metric` is imported.
 
+### Meteor
+This implementation is in java so requires the java run time environment.
+This can be installed with
+```bash
+apt-get install default-jre
+```
+
 ## Usage
 
 ### As a package
