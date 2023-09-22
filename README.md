@@ -100,6 +100,13 @@ This can be installed with
 apt-get install default-jre
 ```
 
+### Blanc; Mover score
+As currently implemented, these metrics require CUDA acceleration.
+This will require cuda to be installed, which can be confirmed by successfully running `nvidia-smi` and having
+the appropriate GPU reported.
+
+Installation instructions are provided by [NVidia](https://docs.nvidia.com/cuda/cuda-quick-start-guide/index.html).
+
 ## Usage
 
 ### As a package
