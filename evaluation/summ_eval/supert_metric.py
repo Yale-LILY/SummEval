@@ -4,11 +4,22 @@
 import os
 from collections import Counter
 from nltk.tokenize import sent_tokenize
+import logging
 import gin
+import sys
 
 from summ_eval.sentence_transformers import SentenceTransformer
 from summ_eval.metric import Metric
-from summ_eval.supert_utils import parse_documents, get_all_token_vecs, build_pseudo_ref, get_sbert_score, get_token_vecs
+from summ_eval.supert_utils import (
+    parse_documents,
+    get_all_token_vecs,
+    build_pseudo_ref,
+    get_sbert_score,
+    get_token_vecs,
+)
+
+
+logger = logging.getLogger(__name__)
 
 try:
     PYTHONPATH = os.environ['PYTHONPATH']
@@ -18,8 +29,9 @@ except:
 dirname = os.path.dirname(__file__)
 
 if dirname not in PYTHONPATH:
-    print(f'Please run the following command and add it to your startup script: \n export PYTHONPATH=$PYTHONPATH:{dirname}')
-    exit()
+    # This is a hack to make sure that the sentence_transformers folder can be found for loading models
+    logger.warning(f"{dirname} needs to be set in the `PYTHONPATH` environment variable. Setting it now.")
+    sys.path.append(dirname)
 
 @gin.configurable
 class SupertMetric(Metric):
