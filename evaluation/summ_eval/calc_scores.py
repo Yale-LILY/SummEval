@@ -217,7 +217,7 @@ def cli_main():
             nlp = spacy.load('en_core_web_md')
         except OSError:
             print('Downloading the spacy en_core_web_md model\n'
-                "(don't worry, this will only happen once)", file=stderr)
+                "(don't worry, this will only happen once)", file=sys.stderr)
             from spacy.cli import download
             download('en_core_web_md')
             nlp = spacy.load('en_core_web_md')
