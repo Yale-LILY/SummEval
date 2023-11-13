@@ -3,15 +3,16 @@ import os
 from pathlib import Path
 import tempfile
 import shutil
-import logging
 import gin
+import logging
+import subprocess
+
+from summ_eval import logger
 from summ_eval.metric import Metric
 from summ_eval.test_util import rouge_empty
-import subprocess
-import logging
 
 
-logger = logging.getLogger()
+logger = logger.getChild(__name__)
 
 ROUGE_HOME = os.environ['ROUGE_HOME'] or Path(__file__).parent / "ROUGE-1.5.5"
 if "ROUGE_HOME" not in os.environ:
@@ -55,7 +56,7 @@ class RougeMetric(Metric):
         try:
             self.r = Rouge155(rouge_dir=rouge_dir, rouge_args=rouge_args, log_level=log_level)
         except:
-            print(f'Please run this command: \n pip install -U  git+https://github.com/bheinzerling/pyrouge.git')
+            logger.error(f'Please run this command: \n pip install -U  git+https://github.com/bheinzerling/pyrouge.git')
             exit()
         self.rouge_args = rouge_args
 

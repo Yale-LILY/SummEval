@@ -11,15 +11,17 @@ from wmd import WMD
 from nltk.corpus import stopwords
 #from allennlp.commands.elmo import ElmoEmbedder
 
+from summ_eval import logger
+
+logger = logger.getChild(__name__)
 stop_words = set(stopwords.words('english'))
 
-print("loading spacy")
-
 try:
+    logger.info("Loading spacy")
     nlp = spacy.load('en_core_web_sm')
 except OSError:
-    print('Downloading the spacy en_core_web_sm model\n'
-        "(don't worry, this will only happen once)", file=stderr)
+    logger.info('Downloading the spacy en_core_web_sm model\n'
+        "(don't worry, this will only happen once)")
     from spacy.cli import download
     download('en_core_web_sm')
     nlp = spacy.load('en_core_web_sm')
@@ -228,7 +230,7 @@ def calc_smd(input_f, output_f="", WORD_REP='elmo', METRIC='sms'):
     inF = open(input_f, 'r')
     inLines = inF.readlines()
     inF.close()
-    #print("Found", len(inLines), "documents")
+    logger.debug("Found", len(inLines), "documents")
     token_doc_list, text_doc_list = tokenize_texts(inLines, WORD_REP, tokenize=True)
     count = 0
     results_list = []
@@ -245,11 +247,11 @@ def calc_smd(input_f, output_f="", WORD_REP='elmo', METRIC='sms'):
         try:
             dist = calc.nearest_neighbors(str(0), k=1, early_stop=1)[0][1]  # how far is hyp from ref?
         except Exception as e:
-            print(e)
+            logger.error(e)
         sim = math.exp(-dist)  # switch to similarity
         results_list.append(sim)
         if doc_id == int((len(token_doc_list) / 10.) * count):
-            print(str(count * 10) + "% done with calculations")
+            logger.info(str(count * 10) + "% done with calculations")
             count += 1
     if output_f != "":
         print_score(inLines, output_f, results_list)

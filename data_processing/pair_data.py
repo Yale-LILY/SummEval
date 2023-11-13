@@ -7,6 +7,11 @@ import json
 import os
 from tqdm import tqdm
 
+from summ_eval import logger
+
+
+logger = logger.getChild(__name__)
+
 
 def parse_story_file(content):
     """
@@ -17,7 +22,7 @@ def parse_story_file(content):
     return content
 
 def annotation_pairing(args):
-    print("Processing file:", args.data_annotations)
+    logger.debug("Processing file: %s", args.data_annotations)
     with open(args.data_annotations) as fd:
         dataset = [json.loads(line) for line in fd]
 
@@ -46,7 +51,7 @@ def output_pairing(args):
         if not (".jsonl" in filename and "aligned" in filename and os.path.isfile(unpaired_path)):
             continue
 
-        print("Processing file:", unpaired_path)
+        logger.info("Processing file: %s", unpaired_path)
         with open(unpaired_path) as fd:
             dataset = [json.loads(line) for line in fd]
 

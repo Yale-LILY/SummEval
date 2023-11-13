@@ -16,10 +16,14 @@ from torch.optim import Optimizer
 from torch.utils.data import DataLoader
 from tqdm import tqdm, trange
 
-from . import __DOWNLOAD_SERVER__
+from . import __DOWNLOAD_SERVER__, logger
 from .evaluation import SentenceEvaluator
 from .util import import_from_string, batch_to_device, http_get
 from . import __version__
+
+
+logger = logger.getChild(__name__)
+
 
 class SentenceTransformer(nn.Sequential):
     def __init__(self, model_name_or_path: str = None, modules: Iterable[nn.Module] = None, device: str = None):
@@ -97,7 +101,7 @@ class SentenceTransformer(nn.Sequential):
            a list with ndarrays of the embeddings for each sentence
         """
         if show_progress_bar is None:
-            show_progress_bar = (logging.getLogger().getEffectiveLevel()==logging.INFO or logging.getLogger().getEffectiveLevel()==logging.DEBUG)
+            show_progress_bar = (logger.getEffectiveLevel()==logging.INFO or logger.getEffectiveLevel()==logging.DEBUG)
 
         all_embeddings = []
         all_token_embeddings = []
@@ -159,7 +163,7 @@ class SentenceTransformer(nn.Sequential):
 
     def list_functions(self):
         functions_list = [o for o in getmembers(self._first_module()) if isfunction(o[1])]
-        print(functions_list)
+        logger.debug(functions_list)
 
     def get_sentence_features(self, *features):
         return self._first_module().get_sentence_features(*features)

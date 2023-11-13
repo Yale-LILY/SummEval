@@ -5,6 +5,10 @@ from tqdm import tqdm
 import sys
 import importlib
 
+from summ_eval.sentence_transformers import logger
+
+
+logger = logger.getChild(__name__)
 
 def batch_to_device(batch, target_device: device):
     """
@@ -28,7 +32,7 @@ def http_get(url, path):
     file_binary = open(path, "wb")
     req = requests.get(url, stream=True)
     if req.status_code != 200:
-        print("Exception when trying to download {}. Response {}".format(url, req.status_code), file=sys.stderr)
+        logger.error("Exception when trying to download %s. Response %s", url, req.status_code)
         req.raise_for_status()
 
     content_length = req.headers.get('Content-Length')

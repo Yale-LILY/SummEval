@@ -9,6 +9,12 @@ from nltk.stem.snowball import SnowballStemmer
 from nltk.tokenize import RegexpTokenizer
 import spacy
 
+from summ_eval import logger
+
+
+logger = logger.getChild(__name__)
+
+
 def cli_main():
     #parser = argparse.ArgumentParser(description=metrics_description, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser = argparse.ArgumentParser(description="predictor")
@@ -103,7 +109,7 @@ def cli_main():
 
     # =====================================
     # READ INPUT
-    print("Reading the input")
+    logger.info("Reading the input")
     ids = []
     articles = []
     references = []
@@ -133,10 +139,13 @@ def cli_main():
                     except:
                         bad_lines += 1
         except Exception as e:
-            print("Input did not match required format")
-            print(e)
+            logger.error("Input did not match required format")
+            logger.error(e)
             sys.exit()
-        print(f"This many bad lines encountered during loading: {bad_lines}")
+        if bad_lines > 0:
+            logger.warning("This many bad lines encountered during loading: %s", bad_lines)
+        else:
+            logger.debug(f"No bad lines encountered during loading")
 
     if args.summ_file is not None:
         with open(args.summ_file) as inputf:
@@ -162,7 +171,7 @@ def cli_main():
 
     # =====================================
     # TOKENIZATION
-    print("Preparing the input")
+    logger.info("Preparing the input")
     references_delimited = None
     summaries_delimited = None
     if len(references) > 0:
@@ -216,8 +225,8 @@ def cli_main():
         try:
             nlp = spacy.load('en_core_web_md')
         except OSError:
-            print('Downloading the spacy en_core_web_md model\n'
-                "(don't worry, this will only happen once)", file=stderr)
+            logger.info('Downloading the spacy en_core_web_md model\n'
+                "(don't worry, this will only happen once)")
             from spacy.cli import download
             download('en_core_web_md')
             nlp = spacy.load('en_core_web_md')
@@ -256,7 +265,7 @@ def cli_main():
         final_output = defaultdict(lambda: defaultdict(int))
     #import pdb;pdb.set_trace()
     for metric, metric_cls in metrics_dict.items():
-        print(f"Calculating scores for the {metric} metric.")
+        logger.info(f"Calculating scores for the {metric} metric.")
         try:
             if metric == "rouge":
                 output = metric_cls.evaluate_batch(summaries_delimited, references_delimited, aggregate=args.aggregate)
@@ -283,8 +292,8 @@ def cli_main():
                 for cur_id, cur_output in zip(ids, output):
                     final_output[cur_id].update(cur_output)
         except Exception as e:
-            print(e)
-            print(f"An error was encountered with the {metric} metric.")
+            logger.error(f"An error was encountered with the {metric} metric.")
+            logger.error(e)
     # =====================================
 
 

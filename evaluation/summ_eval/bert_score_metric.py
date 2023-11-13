@@ -1,7 +1,11 @@
 import gin
 import bert_score
 
+from summ_eval import logger
 from summ_eval.metric import Metric
+
+
+logger = logger.getChild(__name__)
 
 
 @gin.configurable
@@ -46,7 +50,7 @@ class BertScoreMetric(Metric):
                                                 verbose=self.verbose, idf=self.idf, batch_size=self.batch_size,
                                                 nthreads=self.nthreads, lang=self.lang, return_hash=True,
                                                 rescale_with_baseline=self.rescale_with_baseline)
-        print(f"hash_code: {hash_code}")
+        logger.debug(f"hash_code: {hash_code}")
         score = {"bert_score_precision": all_preds[0].cpu().item(), "bert_score_recall": all_preds[1].cpu().item(), "bert_score_f1":
                 all_preds[2].cpu().item()}
         return score
@@ -57,7 +61,7 @@ class BertScoreMetric(Metric):
                                                 verbose=self.verbose, idf=self.idf, batch_size=self.batch_size,
                                                 nthreads=self.nthreads, lang=self.lang, return_hash=True,
                                                 rescale_with_baseline=self.rescale_with_baseline)
-        print(f"hash_code: {hash_code}")
+        logger.debug(f"hash_code: {hash_code}")
         if aggregate:
             avg_scores = [s.mean(dim=0) for s in all_preds]
             p_val = avg_scores[0].cpu().item()

@@ -11,6 +11,11 @@ from nltk.corpus import stopwords
 
 import networkx as nx
 
+from summ_eval import logger
+
+
+logger = logger.getChild(__name__)
+
 
 def normaliseList(ll,max_value=10.):
     minv = min(ll)
@@ -54,7 +59,7 @@ def get_ref_vecs(doc_sent_vecs, doc_sent_weights, info_dic):
 
 
 def get_sim_metric(summ_vec_list, doc_sent_vecs, doc_sent_weights, method='cos'):
-    #print('weights', doc_sent_weights)
+    logger.debug('weights: %s', doc_sent_weights)
     # get the avg doc vec, then cosine
     if method == 'cos':
         summ_vec = np.mean(np.array(summ_vec_list),axis=0)
@@ -190,8 +195,8 @@ def parse_documents(docs, bert_model, ref_metric, debug=False):
         sents_weights = get_weights(sent_info_dic, sent_vecs, ref_metric)
     if debug:
         pseudo_ref = [sent_info_dic[k]['text'] for k in sent_info_dic if sents_weights[k]>0.1]
-        print('=====pseudo ref=====')
-        print('\n'.join(pseudo_ref))
+        logger.debug('=====pseudo ref=====')
+        logger.debug('\n'.join(pseudo_ref))
     return sent_info_dic, sent_vecs, sents_weights
 
 
@@ -246,7 +251,7 @@ def get_other_weights(full_vec_list, sent_index, weights, thres):
         if any(weights[n]>=0.9 for n in sg): continue #ignore the subgraph similar to a top sentence
         if len(set([sent_index[n]['doc'] for n in sg])) < 2: continue #must appear in multiple documents
         for n in sg: weights[n]=1./len(sg)
-        #print(sg,'added to weights')
+        logger.debug(sg,'added to weights')
 
 
 def graph_centrality_weight(similarity_matrix):
@@ -298,7 +303,7 @@ def get_indep_cluster_weights(sent_info_dic, sent_vecs):
         clustering = AffinityPropagation().fit(np.array(sent_vecs)[sids])
         centers = clustering.cluster_centers_
         for cc in centers: wanted_ids.append(sums.index(np.sum(cc)))
-    print('indep cluster, pseudo-ref sent num', len(wanted_ids))
+    logger.debug('indep cluster, pseudo-ref sent num', len(wanted_ids))
     weights = [1. if i in wanted_ids else 0. for i in range(len(sent_vecs))]
     return weights
 
@@ -306,7 +311,7 @@ def get_indep_cluster_weights(sent_info_dic, sent_vecs):
 def get_global_cluster_weights(sent_vecs):
     clustering = AffinityPropagation().fit(sent_vecs)
     centers = clustering.cluster_centers_
-    print('global cluster, pseudo-ref sent num', len(centers))
+    logger.debug('global cluster, pseudo-ref sent num', len(centers))
     sums = [np.sum(sv) for sv in sent_vecs]
     ids = []
     for cc in centers: ids.append(sums.index(np.sum(cc)))

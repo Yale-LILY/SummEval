@@ -5,17 +5,21 @@ import os
 import requests
 import zipfile, io
 from stanza.server import CoreNLPClient
+
+from summ_eval import logger
 from summ_eval.metric import Metric
 from summ_eval.syntactic_utils import get_stats
 
+
 dirname = os.path.dirname(__file__)
+logger = logger.getChild(__name__)
 
 if not os.path.exists(os.path.join(dirname, "stanford-corenlp-full-2018-10-05")):
     url = 'http://nlp.stanford.edu/software/stanford-corenlp-full-2018-10-05.zip'
     r = requests.get(url)
     z = zipfile.ZipFile(io.BytesIO(r.content))
     z.extractall(os.path.join(dirname, "./"))
-    print(f'Please run the following command and add it to your startup script: \n export CORENLP_HOME={os.path.join(dirname, "./stanford-corenlp-full-2018-10-05/")}')
+    logger.error(f'Please run the following command and add it to your startup script: \n export CORENLP_HOME={os.path.join(dirname, "./stanford-corenlp-full-2018-10-05/")}')
 
 @gin.configurable
 class SyntacticMetric(Metric):
@@ -47,7 +51,7 @@ class SyntacticMetric(Metric):
             else:
                 corpus_score_dict = []
             for count, summ in enumerate(summaries):
-                print(count)
+                logger.debug(count)
                 stats = get_stats(client, summ)
                 if aggregate:
                     corpus_score_dict.update(stats)
