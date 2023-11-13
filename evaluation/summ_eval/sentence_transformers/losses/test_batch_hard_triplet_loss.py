@@ -214,4 +214,3 @@ if __name__ == '__main__':
     test_anchor_positive_triplet_mask()
     test_anchor_negative_triplet_mask()
     test_batch_hard_triplet_loss()
-    print("--TESTS done ---")

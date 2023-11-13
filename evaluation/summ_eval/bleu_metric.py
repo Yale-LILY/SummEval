@@ -3,6 +3,8 @@ from multiprocessing import Pool
 import gin
 import sacrebleu
 from summ_eval.metric import Metric
+import warnings
+
 
 @gin.configurable
 class BleuMetric(Metric):
@@ -33,7 +35,7 @@ class BleuMetric(Metric):
         self.n_workers = n_workers
 
     def evaluate_example(self, summary, reference):
-        #print("BLEU is intended as a corpus-level metric. Be careful!")
+        warnings.warn("BLEU is intended as a corpus-level metric. Be careful!")
         if isinstance(reference, str):
             reference = [reference]
         score = sacrebleu.sentence_bleu(summary, reference, smooth_method=self.sent_smooth_method, \

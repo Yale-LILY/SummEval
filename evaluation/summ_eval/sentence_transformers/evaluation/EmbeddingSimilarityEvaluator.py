@@ -11,6 +11,11 @@ from sklearn.metrics.pairwise import paired_cosine_distances, paired_euclidean_d
 from scipy.stats import pearsonr, spearmanr
 import numpy as np
 
+from summ_eval import logger
+
+
+logger = logger.getChild(__name__)
+
 class EmbeddingSimilarityEvaluator(SentenceEvaluator):
     """
     Evaluate a model based on the similarity of the embeddings by calculating the Spearman and Pearson rank correlation
@@ -40,7 +45,7 @@ class EmbeddingSimilarityEvaluator(SentenceEvaluator):
             name = "_"+name
 
         if show_progress_bar is None:
-            show_progress_bar = (logging.getLogger().getEffectiveLevel() == logging.INFO or logging.getLogger().getEffectiveLevel() == logging.DEBUG)
+            show_progress_bar = (logger.getEffectiveLevel() == logging.INFO or logger.getEffectiveLevel() == logging.DEBUG)
         self.show_progress_bar = show_progress_bar
 
         self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -81,8 +86,8 @@ class EmbeddingSimilarityEvaluator(SentenceEvaluator):
         try:
             cosine_scores = 1 - (paired_cosine_distances(embeddings1, embeddings2))
         except Exception as e:
-            print(embeddings1)
-            print(embeddings2)
+            logger.debug(embeddings1)
+            logger.debug(embeddings2)
             raise(e)
 
         manhattan_distances = -paired_manhattan_distances(embeddings1, embeddings2)

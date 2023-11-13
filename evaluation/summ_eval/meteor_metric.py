@@ -9,16 +9,18 @@ import logging
 import os
 import re
 import subprocess
-import sys
 import threading
 import psutil
 import requests
+
+from summ_eval import logger
 from summ_eval.metric import Metric
 
 dirname = os.path.dirname(__file__)
+logger = logger.getChild(__name__)
 
 if not os.path.exists(os.path.join(dirname, "meteor-1.5.jar")):
-    print("Downloading the meteor jar")
+    logger.info("Downloading the meteor jar")
     url = 'https://github.com/Maluuba/nlg-eval/blob/master/nlgeval/pycocoevalcap/meteor/meteor-1.5.jar?raw=true'
     r = requests.get(url)
     with open(os.path.join(dirname, "meteor-1.5.jar"), "wb") as outputf:
@@ -102,9 +104,9 @@ class MeteorMetric(Metric):
             try:
                 scores.append(float(dec(v.strip())))
             except:
-                sys.stderr.write("Error handling value: {}\n".format(v))
-                sys.stderr.write("Decoded value: {}\n".format(dec(v.strip())))
-                sys.stderr.write("eval_line: {}\n".format(eval_line))
+                logger.error("Error handling value: {}\n".format(v))
+                logger.debug("Decoded value: {}\n".format(dec(v.strip())))
+                logger.debug("eval_line: {}\n".format(eval_line))
                 raise
             score = float(dec(self.meteor_p.stdout.readline()).strip())
         score_dict = {"meteor" : score}
@@ -126,9 +128,9 @@ class MeteorMetric(Metric):
                 try:
                     scores.append(float(dec(v.strip())))
                 except:
-                    sys.stderr.write("Error handling value: {}\n".format(v))
-                    sys.stderr.write("Decoded value: {}\n".format(dec(v.strip())))
-                    sys.stderr.write("eval_line: {}\n".format(eval_line))
+                    logger.error("Error handling value: {}\n".format(v))
+                    logger.debug("Decoded value: {}\n".format(dec(v.strip())))
+                    logger.debug("eval_line: {}\n".format(eval_line))
             score = float(dec(self.meteor_p.stdout.readline()).strip())
         if aggregate:
             score_dict = {"meteor" : score}

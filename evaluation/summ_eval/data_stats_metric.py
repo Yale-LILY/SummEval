@@ -3,14 +3,19 @@ from collections import Counter
 from multiprocessing import Pool
 import gin
 import spacy
+
+from summ_eval import logger
 from summ_eval.data_stats_utils import Fragments
 from summ_eval.metric import Metric
+
+
+logger = logger.getChild(__name__)
 
 try:
     _en = spacy.load('en_core_web_sm')
 except OSError:
-    print('Downloading the spacy en_core_web_sm model\n'
-        "(don't worry, this will only happen once)", file=stderr)
+    logger.info('Downloading the spacy en_core_web_sm model\n'
+        "(don't worry, this will only happen once)")
     from spacy.cli import download
     download('en_core_web_sm')
     _en = spacy.load('en_core_web_sm')
@@ -56,7 +61,11 @@ class DataStatsMetric(Metric):
         coverage = fragments.coverage()
         density = fragments.density()
         compression = fragments.compression()
-        score_dict = {"coverage": coverage, "density": density, "compression": compression}
+        score_dict = {
+            "coverage": coverage,
+            "density": density,
+            "compression": compression,
+        }
         tokenized_summary = fragments._norm_summary
         tokenized_text = fragments._norm_text
         score_dict["summary_length"] = len(tokenized_summary)
@@ -67,12 +76,15 @@ class DataStatsMetric(Metric):
             summ_ngrams_set = set(summ_ngrams)
             intersect = summ_ngrams_set.intersection(input_ngrams_set)
             try:
-                score_dict[f"percentage_novel_{i}-gram"] = (len(summ_ngrams_set) \
-                    - len(intersect))/float(len(summ_ngrams_set))
+                score_dict[f"percentage_novel_{i}-gram"] = (
+                    len(summ_ngrams_set) - len(intersect)
+                ) / float(len(summ_ngrams_set))
                 ngramCounter = Counter()
                 ngramCounter.update(summ_ngrams)
                 repeated = [key for key, val in ngramCounter.items() if val > 1]
-                score_dict[f"percentage_repeated_{i}-gram_in_summ"] = len(repeated)/float(len(summ_ngrams_set))
+                score_dict[f"percentage_repeated_{i}-gram_in_summ"] = len(
+                    repeated
+                ) / float(len(summ_ngrams_set))
             except ZeroDivisionError:
                 continue
         return score_dict

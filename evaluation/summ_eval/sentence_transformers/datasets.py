@@ -12,6 +12,10 @@ import numpy as np
 from tqdm import tqdm
 from . import SentenceTransformer
 from .readers.InputExample import InputExample
+from . import logger
+
+
+logger = logger.getChild(__name__)
 
 
 class SentencesDataset(Dataset):

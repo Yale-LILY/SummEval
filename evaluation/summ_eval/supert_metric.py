@@ -6,9 +6,13 @@ from collections import Counter
 from nltk.tokenize import sent_tokenize
 import gin
 
+from summ_eval import logger
 from summ_eval.sentence_transformers import SentenceTransformer
 from summ_eval.metric import Metric
 from summ_eval.supert_utils import parse_documents, get_all_token_vecs, build_pseudo_ref, get_sbert_score, get_token_vecs
+
+
+logger = logger.getChild(__name__)
 
 try:
     PYTHONPATH = os.environ['PYTHONPATH']
@@ -18,7 +22,11 @@ except:
 dirname = os.path.dirname(__file__)
 
 if dirname not in PYTHONPATH:
-    print(f'Please run the following command and add it to your startup script: \n export PYTHONPATH=$PYTHONPATH:{dirname}')
+    logger.error(
+        "Please run the following command and add it to your startup script: "
+        "\n export PYTHONPATH=$PYTHONPATH:%s",
+        dirname,
+    )
     exit()
 
 @gin.configurable
