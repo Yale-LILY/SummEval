@@ -14,7 +14,7 @@ if not os.path.exists(os.path.join(dirname, "embeddings")):
     os.mkdir(os.path.join(dirname, "embeddings"))
 if not os.path.exists(os.path.join(dirname, "embeddings/deps.words")):
     print("Downloading the embeddings; this may take a while")
-    url = "http://u.cs.biu.ac.il/~yogo/data/syntemb/deps.words.bz2"
+    url = "https://u.cs.biu.ac.il/~yogo/data/syntemb/deps.words.bz2"
     r = requests.get(url)
     d = bz2.decompress(r.content)
     with open(os.path.join(dirname, "embeddings/deps.words"), "wb") as outputf:
