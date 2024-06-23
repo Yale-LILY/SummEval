@@ -124,22 +124,29 @@ Below are the metrics included in the tookit, followed by the associated paper a
 #### SETUP ####
 
 You can install summ_eval via pip:
-```bash
+```sh
 pip install summ-eval
 ```
 
 You can also install summ_eval from source:
 
-```
+```sh
 git clone https://github.com/Yale-LILY/SummEval.git
-cd evaluation
+cd SummEval/evaluation
 pip install -e .
 ```
 
 You can test your installation (assuming you're in the `./summ_eval` folder) and get familiar with the library through `tests/`
 
-```
+```sh
 python -m unittest discover
+```
+
+Finally, you may also choose to install it using Docker:
+```sh
+git clone https://github.com/Yale-LILY/SummEval.git
+docker build -t summeval:latest SummEval
+docker run -it --rm summeval:latest
 ```
 
 
@@ -148,7 +155,7 @@ We provide a command-line interface `calc-scores` which makes use of [gin config
 
 ##### Examples
 Run ROUGE on given source and target files and write to `rouge.jsonl`, analogous to [files2rouge](https://github.com/pltrdy/files2rouge). 
-```
+```sh
 calc-scores --config-file=examples/basic.config --metrics "rouge" --summ-file summ_eval/1.summ --ref-file summ_eval/1.ref --output-file rouge.jsonl --eos " . " --aggregate True
 ```
 
@@ -156,12 +163,12 @@ calc-scores --config-file=examples/basic.config --metrics "rouge" --summ-file su
 
 
 Run ROUGE and BertScore on a `.jsonl` file which contains `reference` and `decoded` (i.e., system output) keys and write to `output.jsonl`.
-```
+```sh
 calc-scores --config-file=examples/basic.config --metrics "rouge, bert_score" --jsonl-file data.jsonl --output-file rouge_bertscore.jsonl
 ```
 
 For a full list of options, please run:
-```
+```sh
 calc-scores --help
 ```
 
@@ -169,13 +176,13 @@ calc-scores --help
 ### For use in scripts
 If you want to use the evaluation metrics as part of other scripts, we have you covered!
 
-```
+```python
 from summ_eval.rouge_metric import RougeMetric
 rouge = RougeMetric()
 ```
 
 #### Evaluate on a batch
-```
+```python
 summaries = ["This is one summary", "This is another summary"]
 references = ["This is one reference", "This is another"]
 
@@ -183,7 +190,7 @@ rouge_dict = rouge.evaluate_batch(summaries, references)
 ```
 
 #### Evaluate on a single example
-```
+```python
 rouge_dict = rouge.evaluate_example(summaries[0], references[0])
 ```
 
@@ -191,7 +198,7 @@ rouge_dict = rouge.evaluate_example(summaries[0], references[0])
 #### Evaluate with multiple references
 Currently the command-line tool does not use multiple references for simplicity. Each metric has a `supports_multi_ref` property to tell you if it supports multiple references. 
 
-```
+```python
 print(rouge.supports_multi_ref) # True
 multi_references = [["This is ref 1 for summ 1", "This is ref 2 for summ 1"], ["This is ref 1 for summ 2", "This is ref 2 for summ 2"]]
 rouge_dict = rouge.evaluate_batch(summaries, multi_references)
@@ -203,7 +210,7 @@ rouge_dict = rouge.evaluate_batch(summaries, multi_references)
 
 ## Citation
 
-```
+```bibtex
 @article{fabbri2020summeval,
   title={SummEval: Re-evaluating Summarization Evaluation},
   author={Fabbri, Alexander R and Kry{\'s}ci{\'n}ski, Wojciech and McCann, Bryan and Xiong, Caiming and Socher, Richard and Radev, Dragomir},
